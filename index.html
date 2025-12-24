@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mother Habit Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-lavender: #E8DFF5;
+            --soft-pink: #FCE4EC;
+            --sage-green: #E8F5E9;
+            --warm-cream: #FFF8E7;
+            --soft-blue: #E3F2FD;
+            --text-dark: #5D5D5D;
+            --text-medium: #7A7A7A;
+            --accent-purple: #9575CD;
+            --accent-pink: #F48FB1;
+            --accent-green: #81C784;
+            --accent-orange: #FFB74D;
+            --accent-blue: #64B5F6;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--primary-lavender) 0%, var(--soft-pink) 50%, var(--warm-cream) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header h1::before {
+            content: '🌸';
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            margin-top: 5px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background: var(--white);
+            padding: 10px 5px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 -2px 15px var(--shadow);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.7rem;
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .nav-item:hover {
+            background: var(--primary-lavender);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: var(--white);
+        }
+
+        .nav-item .icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Page Sections */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            color: var(--text-medium);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Page Headers */
+        .page-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+        }
+
+        /* Colored Cards */
+        .card.lavender {
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary-lavender) 100%);
+        }
+
+        .card.pink {
+            background: linear-gradient(135deg, var(--white) 0%, var(--soft-pink) 100%);
+        }
+
+        .card.green {
+            background: linear-gradient(135deg, var(--white) 0%, var(--sage-green) 100%);
+        }
+
+        .card.cream {
+            background: linear-gradient(135deg, var(--white) 0%, var(--warm-cream) 100%);
+        }
+
+        .card.blue {
+            background: linear-gradient(135deg, var(--white) 0%, var(--soft-blue) 100%);
+        }
+
+        /* Placeholder Items */
+        .placeholder-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .placeholder-item:last-child {
+            border-bottom: none;
+        }
+
+        .placeholder-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            font-size: 1.2rem;
+        }
+
+        .placeholder-icon.purple { background: var(--primary-lavender); }
+        .placeholder-icon.pink { background: var(--soft-pink); }
+        .placeholder-icon.green { background: var(--sage-green); }
+        .placeholder-icon.orange { background: var(--warm-cream); }
+        .placeholder-icon.blue { background: var(--soft-blue); }
+
+        .placeholder-text {
+            flex: 1;
+        }
+
+        .placeholder-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .placeholder-text p {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        /* Progress Bar Placeholder */
+        .progress-bar {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-fill.purple { background: var(--accent-purple); }
+        .progress-fill.pink { background: var(--accent-pink); }
+        .progress-fill.green { background: var(--accent-green); }
+        .progress-fill.orange { background: var(--accent-orange); }
+        .progress-fill.blue { background: var(--accent-blue); }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 16px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            margin-top: 4px;
+        }
+
+        /* Chat Placeholder */
+        .chat-bubble {
+            background: var(--primary-lavender);
+            padding: 16px;
+            border-radius: 18px 18px 18px 4px;
+            margin-bottom: 12px;
+            max-width: 85%;
+        }
+
+        .chat-bubble.user {
+            background: var(--accent-purple);
+            color: var(--white);
+            margin-left: auto;
+            border-radius: 18px 18px 4px 18px;
+        }
+
+        .chat-input-placeholder {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chat-input-placeholder input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--primary-lavender);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input-placeholder input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .chat-input-placeholder button {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: var(--white);
+            border: none;
+            padding: 14px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-input-placeholder button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Level Bars */
+        .level-item {
+            margin-bottom: 20px;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .level-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-value {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .nav-item {
+                padding: 6px 8px;
+                min-width: 50px;
+                font-size: 0.65rem;
+            }
+
+            .nav-item .icon {
+                font-size: 1.2rem;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Mother Habit Tracker</h1>
+        <p>Nurturing yourself, nurturing your little one</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Today Page -->
+        <section id="today" class="page active">
+            <div class="page-header">
+                <h2>Today</h2>
+                <p>Wednesday, December 24</p>
+            </div>
+
+            <div class="card lavender">
+                <div class="card-title">🌅 Good Morning, Mama!</div>
+                <div class="card-content">
+                    You're doing amazing. Here's your wellness check-in for today.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Today's Habits</div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
+                        <h4>Drink Water</h4>
+                        <p>Stay hydrated for you and baby</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon pink">🧘</div>
+                    <div class="placeholder-text">
+                        <h4>5-Minute Stretch</h4>
+                        <p>Gentle movement for recovery</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon green">😴</div>
+                    <div class="placeholder-text">
+                        <h4>Rest When Baby Rests</h4>
+                        <p>Self-care is not selfish</p>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill purple" style="width: 33%;"></div>
+                </div>
+            </div>
+
+            <div class="card pink">
+                <div class="card-title">💭 Daily Affirmation</div>
+                <div class="card-content">
+                    "I am exactly the mother my baby needs. I trust myself and my journey."
+                </div>
+            </div>
+        </section>
+
+        <!-- Habits Page -->
+        <section id="habits" class="page">
+            <div class="page-header">
+                <h2>My Habits</h2>
+                <p>Build routines that support your wellness</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">💪 Active Habits</div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
+                        <h4>Hydration</h4>
+                        <p>8 glasses daily • 5 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon pink">💊</div>
+                    <div class="placeholder-text">
+                        <h4>Prenatal Vitamins</h4>
+                        <p>Once daily • 12 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon green">🌿</div>
+                    <div class="placeholder-text">
+                        <h4>Fresh Air Walk</h4>
+                        <p>15 minutes • 3 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon orange">📔</div>
+                    <div class="placeholder-text">
+                        <h4>Gratitude Journal</h4>
+                        <p>Evening • 7 day streak</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card green">
+                <div class="card-title">✨ Suggested Habits</div>
+                <div class="card-content">
+                    Based on your journey, you might enjoy adding: Pelvic floor exercises, Skin-to-skin time, or a Mindful breathing practice.
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Page -->
+        <section id="insights" class="page">
+            <div class="page-header">
+                <h2>Insights</h2>
+                <p>Celebrate your progress</p>
+            </div>
+
+            <div class="card lavender">
+                <div class="card-title">📊 This Week's Summary</div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Habits Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Active Habits</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">Total Check-ins</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🏆 Recent Achievements</div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon green">⭐</div>
+                    <div class="placeholder-text">
+                        <h4>First Week Complete!</h4>
+                        <p>You've been consistent for 7 days</p>
+                    </div>
+                </div>
+                <div class="placeholder-item">
+                    <div class="placeholder-icon orange">🌟</div>
+                    <div class="placeholder-text">
+                        <h4>Hydration Hero</h4>
+                        <p>Met water goal 5 days in a row</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card cream">
+                <div class="card-title">💡 Wellness Tip</div>
+                <div class="card-content">
+                    Your most consistent habit is taking vitamins in the morning. Try "habit stacking" by adding another small habit right after!
+                </div>
+            </div>
+        </section>
+
+        <!-- My Levels Page -->
+        <section id="levels" class="page">
+            <div class="page-header">
+                <h2>My Levels</h2>
+                <p>Track how you're feeling</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌡️ Today's Check-in</div>
+                
+                <div class="level-item">
+                    <div class="level-header">
+                        <span class="level-name">😴 Sleep Quality</span>
+                        <span class="level-value">6/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill purple" style="width: 60%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-header">
+                        <span class="level-name">⚡ Energy Level</span>
+                        <span class="level-value">5/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill orange" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-header">
+                        <span class="level-name">😊 Mood</span>
+                        <span class="level-value">7/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill pink" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item">
+                    <div class="level-header">
+                        <span class="level-name">💪 Physical Comfort</span>
+                        <span class="level-value">6/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill green" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card blue">
+                <div class="card-title">📈 Weekly Trends</div>
+                <div class="card-content">
+                    Your mood has been steadily improving over the past week. Sleep quality tends to be better on days when you complete your evening wind-down routine.
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Coach Page -->
+        <section id="coach" class="page">
+            <div class="page-header">
+                <h2>AI Coach</h2>
+                <p>Your supportive wellness companion</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">💬 Chat with Your Coach</div>
+                
+                <div class="chat-bubble">
+                    Hi there, mama! 🌸 I'm here to support you on your postpartum journey. How are you feeling today? Remember, there's no wrong answer – I'm here to listen and help.
+                </div>
+
+                <div class="chat-bubble user">
+                    I'm feeling a bit overwhelmed today.
+                </div>
+
+                <div class="chat-bubble">
+                    That's completely understandable, and thank you for sharing that with me. Feeling overwhelmed is so normal during this time. Would you like some gentle suggestions for managing these feelings, or would you prefer to just talk about what's on your mind?
+                </div>
+
+                <div class="chat-input-placeholder">
+                    <input type="text" placeholder="Type your message...">
+                    <button>Send</button>
+                </div>
+            </div>
+
+            <div class="card pink">
+                <div class="card-title">🎯 Quick Topics</div>
+                <div class="card-content">
+                    • Sleep strategies for new moms<br>
+                    • Managing postpartum emotions<br>
+                    • Self-care in small moments<br>
+                    • Building a support system
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="nav">
+        <div class="nav-item active" data-page="today">
+            <span class="icon">🏠</span>
+            Today
+        </div>
+        <div class="nav-item" data-page="habits">
+            <span class="icon">✓</span>
+            Habits
+        </div>
+        <div class="nav-item" data-page="insights">
+            <span class="icon">📊</span>
+            Insights
+        </div>
+        <div class="nav-item" data-page="levels">
+            <span class="icon">💫</span>
+            My Levels
+        </div>
+        <div class="nav-item" data-page="coach">
+            <span class="icon">🤖</span>
+            AI Coach
+        </div>
+    </nav>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-page');
+
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Show target page, hide others
+                    pages.forEach(page => {
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                        } else {
+                            page.classList.remove('active');
+                        }
+                    });
+
+                    // Scroll to top of page
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // Update date display
+            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('en-US', dateOptions);
+            const dateElement = document.querySelector('#today .page-header p');
+            if (dateElement) {
+                dateElement.textContent = today;
+            }
+        });
+    </script>
+</body>
+</html>
