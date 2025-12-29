@@ -830,13 +830,12 @@
             width: 40px;
             height: 40px;
             border-radius: 12px;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             background: var(--gradient-accent);
             box-shadow: 0 4px 12px rgba(149, 117, 205, 0.3);
-            flex-shrink: 0;
         }
 
         .level-value {
@@ -862,23 +861,6 @@
             box-shadow: 
                 0 2px 8px rgba(149, 117, 205, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            overflow: hidden;
-        }
-
-        .level-progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            animation: progress-shine 2s infinite;
         }
 
         .level-progress-fill.purple {
@@ -1152,40 +1134,6 @@
             white-space: nowrap;
             border-width: 0;
         }
-
-        /* ============================================
-           SEMANTIC TEXT CLASSES
-           ============================================ */
-        .text-heading {
-            font-size: var(--text-2xl);
-            font-weight: var(--weight-bold);
-            color: var(--text-primary);
-            line-height: var(--leading-tight);
-            letter-spacing: var(--tracking-tight);
-        }
-
-        .text-body {
-            font-size: var(--text-base);
-            font-weight: var(--weight-normal);
-            color: var(--text-secondary);
-            line-height: var(--leading-normal);
-        }
-
-        .text-caption {
-            font-size: var(--text-sm);
-            font-weight: var(--weight-normal);
-            color: var(--text-tertiary);
-            line-height: var(--leading-normal);
-        }
-
-        /* ============================================
-           ANIMATED GRADIENT UTILITY
-           ============================================ */
-        .animated-gradient {
-            background: var(--gradient-animated);
-            background-size: var(--gradient-size);
-            animation: gradient-shift 15s ease infinite;
-        }
     </style>
 </head>
 <body>
@@ -1216,29 +1164,26 @@
 
             <div class="card" role="article" aria-labelledby="habits-title">
                 <div class="card-title" id="habits-title">📋 Today's Habits</div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Drink Water habit">
-                    <div class="habit-icon placeholder-icon purple">💧</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Drink Water habit">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
                         <h4>Drink Water</h4>
                         <p>Stay hydrated for you and baby</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="5-Minute Stretch habit">
-                    <div class="habit-icon placeholder-icon pink">🧘</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="5-Minute Stretch habit">
+                    <div class="placeholder-icon pink">🧘</div>
+                    <div class="placeholder-text">
                         <h4>5-Minute Stretch</h4>
                         <p>Gentle movement for recovery</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Rest When Baby Rests habit">
-                    <div class="habit-icon placeholder-icon green">😴</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Rest When Baby Rests habit">
+                    <div class="placeholder-icon green">😴</div>
+                    <div class="placeholder-text">
                         <h4>Rest When Baby Rests</h4>
                         <p>Self-care is not selfish</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
                 <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Habits completion progress">
                     <div class="progress-fill purple" style="width: 33%;"></div>
@@ -1262,37 +1207,33 @@
 
             <div class="card" role="article" aria-labelledby="active-habits-title">
                 <div class="card-title" id="active-habits-title">💪 Active Habits</div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Hydration habit">
-                    <div class="habit-icon placeholder-icon purple">💧</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Hydration habit">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
                         <h4>Hydration</h4>
                         <p>8 glasses daily • 5 day streak</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit">
-                    <div class="habit-icon placeholder-icon pink">💊</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit">
+                    <div class="placeholder-icon pink">💊</div>
+                    <div class="placeholder-text">
                         <h4>Prenatal Vitamins</h4>
                         <p>Once daily • 12 day streak</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit">
-                    <div class="habit-icon placeholder-icon green">🌿</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit">
+                    <div class="placeholder-icon green">🌿</div>
+                    <div class="placeholder-text">
                         <h4>Fresh Air Walk</h4>
                         <p>15 minutes • 3 day streak</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
-                <div class="habit-item placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit">
-                    <div class="habit-icon placeholder-icon orange">📔</div>
-                    <div class="habit-text placeholder-text">
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit">
+                    <div class="placeholder-icon orange">📔</div>
+                    <div class="placeholder-text">
                         <h4>Gratitude Journal</h4>
                         <p>Evening • 7 day streak</p>
                     </div>
-                    <div class="habit-checkbox" aria-label="Mark as complete"></div>
                 </div>
             </div>
 
@@ -1371,53 +1312,41 @@
                 
                 <div class="level-item" role="article">
                     <div class="level-header">
-                        <span class="level-name">
-                            <span class="level-icon">😴</span>
-                            Sleep Quality
-                        </span>
+                        <span class="level-name">😴 Sleep Quality</span>
                         <span class="level-value">6/10</span>
                     </div>
-                    <div class="level-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Sleep Quality: 6 out of 10">
-                        <div class="level-progress-fill purple" style="width: 60%;"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Sleep Quality: 6 out of 10">
+                        <div class="progress-fill purple" style="width: 60%;"></div>
                     </div>
                 </div>
 
                 <div class="level-item" role="article">
                     <div class="level-header">
-                        <span class="level-name">
-                            <span class="level-icon">⚡</span>
-                            Energy Level
-                        </span>
+                        <span class="level-name">⚡ Energy Level</span>
                         <span class="level-value">5/10</span>
                     </div>
-                    <div class="level-progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Energy Level: 5 out of 10">
-                        <div class="level-progress-fill orange" style="width: 50%;"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Energy Level: 5 out of 10">
+                        <div class="progress-fill orange" style="width: 50%;"></div>
                     </div>
                 </div>
 
                 <div class="level-item" role="article">
                     <div class="level-header">
-                        <span class="level-name">
-                            <span class="level-icon">😊</span>
-                            Mood
-                        </span>
+                        <span class="level-name">😊 Mood</span>
                         <span class="level-value">7/10</span>
                     </div>
-                    <div class="level-progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Mood: 7 out of 10">
-                        <div class="level-progress-fill pink" style="width: 70%;"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Mood: 7 out of 10">
+                        <div class="progress-fill pink" style="width: 70%;"></div>
                     </div>
                 </div>
 
                 <div class="level-item" role="article">
                     <div class="level-header">
-                        <span class="level-name">
-                            <span class="level-icon">💪</span>
-                            Physical Comfort
-                        </span>
+                        <span class="level-name">💪 Physical Comfort</span>
                         <span class="level-value">6/10</span>
                     </div>
-                    <div class="level-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Physical Comfort: 6 out of 10">
-                        <div class="level-progress-fill green" style="width: 60%;"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Physical Comfort: 6 out of 10">
+                        <div class="progress-fill green" style="width: 60%;"></div>
                     </div>
                 </div>
             </div>
@@ -1610,36 +1539,15 @@
             // ============================================
             // HABIT ITEM INTERACTIONS
             // ============================================
-            const habitItems = document.querySelectorAll('.habit-item[role="button"]');
+            const habitItems = document.querySelectorAll('.placeholder-item[role="button"]');
             habitItems.forEach(item => {
-                const checkbox = item.querySelector('.habit-checkbox');
-                
-                item.addEventListener('click', function(e) {
-                    // Don't toggle if clicking directly on checkbox
-                    if (e.target === checkbox) return;
-                    
+                item.addEventListener('click', function() {
                     // Toggle completed state
-                    const isCompleted = this.classList.toggle('completed');
-                    checkbox.classList.toggle('checked', isCompleted);
+                    this.classList.toggle('completed');
                     
                     // Show success toast
-                    if (isCompleted) {
-                        showToast('Habit completed! 🌟');
-                    }
+                    showToast('Habit completed! 🌟');
                 });
-
-                // Checkbox click handler
-                if (checkbox) {
-                    checkbox.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const isCompleted = item.classList.toggle('completed');
-                        checkbox.classList.toggle('checked', isCompleted);
-                        
-                        if (isCompleted) {
-                            showToast('Habit completed! 🌟');
-                        }
-                    });
-                }
 
                 // Keyboard support
                 item.addEventListener('keydown', function(e) {
