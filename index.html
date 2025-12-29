@@ -1984,6 +1984,8 @@
     <audio id="stretch-timer-sound" src="Sounds/DB studios - Baby laughing joyfully .mp3" preload="auto"></audio>
     <!-- Deep Breath timer end: Baby squealing/babbling -->
     <audio id="breath-timer-sound" src="Sounds/Sound Ex Machina - Baby - Fourteen Months Old Boy Happy Squealing Babbling Growling.mp3" preload="auto"></audio>
+    <!-- Water tracker: Water droplet sound -->
+    <audio id="water-droplet-sound" src="Sounds/344 Audio - Bubbles - Small Bubble Water Drop.mp3" preload="auto"></audio>
 
     <!-- Header -->
     <header class="header" role="banner">
@@ -2745,6 +2747,7 @@
             waterPlus?.addEventListener('click', () => {
                 if (appState.waterCount < 8) {
                     appState.waterCount++;
+                    playSound('water-droplet-sound');
                     updateWaterDisplay();
                     if (appState.waterCount === 8) {
                         showToast('🎉 Water goal complete!');
@@ -2755,6 +2758,7 @@
             waterMinus?.addEventListener('click', () => {
                 if (appState.waterCount > 0) {
                     appState.waterCount--;
+                    playSound('water-droplet-sound');
                     updateWaterDisplay();
                 }
             });
