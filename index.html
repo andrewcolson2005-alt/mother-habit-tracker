@@ -1311,51 +1311,109 @@
 
         /* ============================================
            FEATURE 5: QUICK WINS SHORTCUT BUTTONS
+           Mobile-first: All 5 buttons visible without scrolling
            ============================================ */
         .quick-wins-container {
             margin-bottom: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .quick-wins-container::-webkit-scrollbar {
-            display: none;
+            overflow-x: hidden;
+            padding: 4px;
         }
 
         .quick-wins {
             display: flex;
-            gap: 10px;
-            padding: 4px;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
         }
 
         .quick-win-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            height: 40px;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 12px;
+            height: 36px;
             background: var(--gradient-accent);
             color: #FFFFFF;
             border: none;
-            border-radius: 20px;
-            font-size: var(--text-sm);
+            border-radius: 18px;
+            font-size: 0.75rem;
             font-weight: var(--weight-medium);
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s var(--ease-smooth);
-            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.25);
-            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(149, 117, 205, 0.25);
+            flex: 0 1 auto;
         }
 
         .quick-win-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(149, 117, 205, 0.35);
+            box-shadow: 0 5px 14px rgba(149, 117, 205, 0.35);
         }
 
         .quick-win-btn:active {
             transform: translateY(0);
+        }
+
+        /* Tablet and up - slightly larger buttons */
+        @media (min-width: 480px) {
+            .quick-win-btn {
+                padding: 10px 14px;
+                height: 38px;
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+        }
+
+        /* Desktop - full size buttons in single row */
+        @media (min-width: 600px) {
+            .quick-wins {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+            }
+            
+            .quick-win-btn {
+                padding: 10px 16px;
+                height: 40px;
+                font-size: 0.85rem;
+                gap: 6px;
+                flex: 1 1 0;
+            }
+        }
+
+        /* ============================================
+           SOUND MUTE TOGGLE
+           ============================================ */
+        .mute-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-lavender-50);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s var(--ease-smooth);
+            box-shadow: 0 2px 8px rgba(149, 117, 205, 0.15);
+        }
+
+        .mute-toggle:hover {
+            background: var(--primary-lavender-100);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .mute-toggle.muted {
+            background: var(--soft-pink-100);
+        }
+
+        .header {
+            position: relative;
         }
 
         /* ============================================
@@ -1484,6 +1542,11 @@
             margin-top: 12px;
         }
 
+        .photo-thumbnail-container {
+            position: relative;
+            display: inline-block;
+        }
+
         .photo-thumbnail {
             width: 60px;
             height: 60px;
@@ -1492,10 +1555,74 @@
             border: 2px solid var(--primary-lavender-200);
         }
 
+        .photo-remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--soft-pink-500);
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s var(--ease-smooth);
+            box-shadow: 0 2px 6px rgba(232, 164, 184, 0.4);
+        }
+
+        .photo-remove-btn:hover {
+            background: var(--soft-pink-700);
+            transform: scale(1.1);
+        }
+
         .photo-placeholder {
             font-size: var(--text-sm);
             color: var(--text-tertiary);
             font-style: italic;
+        }
+
+        /* Timer Alert Animation */
+        .timer-display.alert {
+            animation: timer-alert 0.5s ease-in-out 3;
+            color: var(--success-green-light);
+            text-shadow: 0 0 20px rgba(124, 185, 132, 0.5);
+        }
+
+        /* Breathing timer uses lavender color */
+        #breathing-timer.alert {
+            color: var(--primary-lavender-200);
+            text-shadow: 0 0 20px rgba(184, 165, 217, 0.5);
+        }
+
+        @keyframes timer-alert {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .timer-complete-message {
+            font-size: var(--text-lg);
+            color: var(--success-green-light);
+            margin-top: 16px;
+            animation: fade-in 0.3s ease-out;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Photo fade-out animation */
+        .photo-thumbnail-container.removing {
+            animation: photo-fade-out 0.3s ease-out forwards;
+        }
+
+        @keyframes photo-fade-out {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.8); }
         }
 
         /* ============================================
@@ -1859,10 +1986,22 @@
     <!-- Subtle Particle Effect -->
     <div class="particles" id="particles"></div>
 
+    <!-- Audio Elements for Sound Effects -->
+    <!-- All habits complete/Confetti: Party blower + Toddler laughing (play BOTH simultaneously) -->
+    <audio id="all-complete-sound-1" src="Sounds/BOOM Library - Cartoon Elements - Party Blower Hooting .mp3" preload="auto"></audio>
+    <audio id="all-complete-sound-2" src="Sounds/Julien Matthey - Human Reactions - Happy Toddler Laughing.mp3" preload="auto"></audio>
+    <!-- 2-Min Stretch timer end: Baby laughing joyfully -->
+    <audio id="stretch-timer-sound" src="Sounds/DB studios - Baby laughing joyfully .mp3" preload="auto"></audio>
+    <!-- Deep Breath timer end: Baby squealing/babbling -->
+    <audio id="breath-timer-sound" src="Sounds/Sound Ex Machina - Baby - Fourteen Months Old Boy Happy Squealing Babbling Growling.mp3" preload="auto"></audio>
+
     <!-- Header -->
     <header class="header" role="banner">
         <h1><span class="flower-icon">🌸</span> Mother Habit Tracker</h1>
         <p>Nurturing yourself, nurturing your little one</p>
+        <button class="mute-toggle" id="mute-toggle" type="button" aria-label="Toggle sound" title="Toggle sound effects">
+            🔊
+        </button>
     </header>
 
     <!-- Main Content -->
@@ -2312,7 +2451,9 @@
             waterCount: 0,
             currentPage: 0,
             pages: ['today', 'habits', 'insights', 'levels', 'coach'],
-            firstVisit: !localStorage.getItem('visitedBefore')
+            firstVisit: !localStorage.getItem('visitedBefore'),
+            soundEnabled: localStorage.getItem('soundEnabled') !== 'false',
+            celebrationShown: false
         };
 
         // ============================================
@@ -2328,6 +2469,146 @@
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
             };
+        }
+
+        // ============================================
+        // SOUND SYSTEM
+        // ============================================
+        function playSound(soundId) {
+            if (!appState.soundEnabled) return;
+            
+            const audio = document.getElementById(soundId);
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(err => {
+                    // Graceful error handling - sounds may not exist yet
+                    console.log('Sound not available:', soundId);
+                });
+            }
+        }
+
+        function initSoundSystem() {
+            const muteToggle = document.getElementById('mute-toggle');
+            
+            // Set initial state
+            updateMuteButton();
+            
+            muteToggle?.addEventListener('click', () => {
+                appState.soundEnabled = !appState.soundEnabled;
+                localStorage.setItem('soundEnabled', appState.soundEnabled);
+                updateMuteButton();
+            });
+            
+            function updateMuteButton() {
+                if (muteToggle) {
+                    muteToggle.textContent = appState.soundEnabled ? '🔊' : '🔇';
+                    muteToggle.classList.toggle('muted', !appState.soundEnabled);
+                    muteToggle.title = appState.soundEnabled ? 'Sound on - click to mute' : 'Sound off - click to unmute';
+                }
+            }
+        }
+
+        // ============================================
+        // AI COACH RESPONSES
+        // ============================================
+        const aiResponses = {
+            tired: [
+                "It's completely normal to feel tired. Your body is doing incredible work. Have you been able to rest when baby sleeps? 💜",
+                "Exhaustion is so real during this time. Remember, you don't have to do everything. What's one thing you can let go of today? 💜",
+                "I hear you, mama. Tiredness is your body asking for rest. Even small moments of stillness can help. You're doing amazing. 💜",
+                "Being tired is so hard. Your body has been through so much. Can you carve out even 10 minutes of rest for yourself? 💜"
+            ],
+            overwhelmed: [
+                "I hear you, mama. Taking things one moment at a time is all you need to do. What's one small thing that might help right now? 💜",
+                "Feeling overwhelmed is completely valid. You're handling so much. Would you like to talk through what's on your mind? 💜",
+                "It's okay to feel overwhelmed - this is a big adjustment. Remember, you don't have to have it all figured out. 💜",
+                "When everything feels like too much, try focusing on just the next hour. You've got this, one step at a time. 💜"
+            ],
+            stressed: [
+                "Stress is so common during this time. Have you tried a few deep breaths? Even 30 seconds can help reset your nervous system. 💜",
+                "I understand that stress, mama. What's weighing on you most right now? Sometimes naming it helps. 💜",
+                "Stress can feel so heavy. Remember, it's okay to ask for help. You don't have to carry everything alone. 💜"
+            ],
+            anxious: [
+                "Anxiety can feel so overwhelming. You're not alone in this. Would it help to talk about what's making you feel this way? 💜",
+                "Those anxious feelings are valid. Remember, they're just feelings - they don't define you or your abilities as a mother. 💜",
+                "I'm here with you through the anxiety. Sometimes grounding exercises can help - try noticing 5 things you can see around you. 💜"
+            ],
+            happy: [
+                "That's wonderful to hear! Celebrating these moments is so important. You're doing amazing! 💜",
+                "I love hearing this! These happy moments are precious. What made today feel good? 💜",
+                "Yay! Your joy is contagious! Savor this feeling, mama - you deserve all the happiness. 💜",
+                "This makes me so happy to hear! You're thriving, and it shows. Keep celebrating the wins! 💜"
+            ],
+            good: [
+                "That's great! I'm so glad you're feeling good today. What's been going well? 💜",
+                "Wonderful! It's lovely to hear you're having a good day. You deserve it! 💜",
+                "So glad to hear things are going well! What's bringing you joy today? 💜"
+            ],
+            sleep: [
+                "Sleep is so precious and often elusive with a little one. Are you able to rest when baby rests? 💜",
+                "Sleep deprivation is real and hard. Remember, this phase won't last forever. Be gentle with yourself. 💜",
+                "Getting enough sleep is tough! Have you tried any sleep-when-baby-sleeps strategies? I'm here to help brainstorm. 💜"
+            ],
+            baby: [
+                "How are things going with your little one? Every baby is different, and you're learning together. 💜",
+                "Your baby is so lucky to have you. Trust your instincts - you know your little one best. 💜",
+                "Caring for a baby is a beautiful journey with ups and downs. What's on your mind about your little one? 💜"
+            ],
+            help: [
+                "I'm here to help in any way I can. What would be most supportive for you right now? 💜",
+                "Asking for help is a strength, not a weakness. What do you need support with today? 💜",
+                "I'm glad you reached out. Let's work through this together. What's going on? 💜"
+            ],
+            sad: [
+                "I'm sorry you're feeling sad. Your feelings are valid, and I'm here to listen. Would you like to share more? 💜",
+                "Sadness can feel heavy. Remember, it's okay to not be okay. What would bring you a little comfort right now? 💜",
+                "I'm holding space for your sadness, mama. You're not alone in this feeling. 💜"
+            ],
+            lonely: [
+                "Loneliness as a new mom is more common than people talk about. You're not alone in feeling this way. 💜",
+                "I hear you. Motherhood can feel isolating sometimes. Is there someone you could reach out to today? 💜",
+                "Feeling lonely is so hard. Remember, you have support here. What would help you feel more connected? 💜"
+            ],
+            default: [
+                "Thank you for sharing. I'm here to support you through this journey. 💜",
+                "I appreciate you opening up. How can I best support you today? 💜",
+                "I'm listening, mama. Whatever you're feeling is valid. 💜",
+                "Thanks for sharing that with me. Remember, I'm always here when you need to talk. 💜",
+                "I hear you. This motherhood journey has so many moments - both challenging and beautiful. I'm here for all of it. 💜"
+            ]
+        };
+
+        function getAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            // Check for keywords and return appropriate response
+            const keywordMap = [
+                { keywords: ['tired', 'exhausted', 'fatigue', 'no energy', 'so tired'], category: 'tired' },
+                { keywords: ['overwhelmed', 'too much', 'cant cope', "can't cope", 'drowning'], category: 'overwhelmed' },
+                { keywords: ['stressed', 'stress', 'pressure', 'tense'], category: 'stressed' },
+                { keywords: ['anxious', 'anxiety', 'worried', 'worry', 'nervous', 'panic'], category: 'anxious' },
+                { keywords: ['happy', 'joy', 'joyful', 'wonderful', 'amazing', 'great day', 'fantastic'], category: 'happy' },
+                { keywords: ['good', 'fine', 'okay', 'ok', 'better', 'well'], category: 'good' },
+                { keywords: ['sleep', 'insomnia', 'awake', 'night', 'nap'], category: 'sleep' },
+                { keywords: ['baby', 'newborn', 'infant', 'little one', 'child'], category: 'baby' },
+                { keywords: ['help', 'support', 'advice', 'guidance', 'need'], category: 'help' },
+                { keywords: ['sad', 'down', 'depressed', 'unhappy', 'crying', 'cry'], category: 'sad' },
+                { keywords: ['lonely', 'alone', 'isolated', 'isolation'], category: 'lonely' }
+            ];
+            
+            for (const item of keywordMap) {
+                for (const keyword of item.keywords) {
+                    if (message.includes(keyword)) {
+                        const responses = aiResponses[item.category];
+                        return responses[Math.floor(Math.random() * responses.length)];
+                    }
+                }
+            }
+            
+            // Return random default response
+            const defaults = aiResponses.default;
+            return defaults[Math.floor(Math.random() * defaults.length)];
         }
 
         // ============================================
@@ -2368,6 +2649,9 @@
         }
 
         function showCelebrationToast(message) {
+            // Remove any existing celebration toasts to prevent duplicates
+            document.querySelectorAll('.toast.celebration').forEach(t => t.remove());
+            
             const toast = document.createElement('div');
             toast.className = 'toast celebration';
             toast.textContent = message;
@@ -2505,15 +2789,24 @@
 
             stretchBtn?.addEventListener('click', () => {
                 timerOverlay.classList.add('active');
+                timerDisplay.classList.remove('alert');
+                document.getElementById('timer-label').textContent = '🧘 Stretch Time';
                 startTimer(120, timerDisplay, () => {
-                    showToast('🧘 Great stretch! You did it!');
-                    timerOverlay.classList.remove('active');
+                    // Play happy toddler laughing sound
+                    playSound('stretch-timer-sound');
+                    timerDisplay.classList.add('alert');
+                    document.getElementById('timer-label').textContent = 'Great job, mama! 🎉';
+                    setTimeout(() => {
+                        timerOverlay.classList.remove('active');
+                        timerDisplay.classList.remove('alert');
+                    }, 3000);
                 });
             });
 
             timerClose?.addEventListener('click', () => {
                 clearInterval(timerInterval);
                 timerOverlay.classList.remove('active');
+                timerDisplay.classList.remove('alert');
             });
 
             function startTimer(seconds, display, onComplete) {
@@ -2547,12 +2840,14 @@
 
             breathBtn?.addEventListener('click', () => {
                 breathingOverlay.classList.add('active');
+                breathingTimer.classList.remove('alert');
                 startBreathingGuide();
             });
 
             breathingClose?.addEventListener('click', () => {
                 clearInterval(breathingInterval);
                 breathingOverlay.classList.remove('active');
+                breathingTimer.classList.remove('alert');
             });
 
             function startBreathingGuide() {
@@ -2578,8 +2873,14 @@
                     
                     if (seconds <= 0) {
                         clearInterval(breathingInterval);
-                        showToast('😮‍💨 Great breathing session!');
-                        breathingOverlay.classList.remove('active');
+                        // Play baby squealing sound
+                        playSound('breath-timer-sound');
+                        breathingTimer.classList.add('alert');
+                        breathingText.textContent = 'You did it! 💜';
+                        setTimeout(() => {
+                            breathingOverlay.classList.remove('active');
+                            breathingTimer.classList.remove('alert');
+                        }, 3000);
                     }
                 }, 1000);
             }
@@ -2701,7 +3002,34 @@
             });
 
             function displayPhoto(dataUrl) {
-                photoPreview.innerHTML = `<img src="${dataUrl}" alt="Today's moment" class="photo-thumbnail">`;
+                photoPreview.innerHTML = `
+                    <div class="photo-thumbnail-container">
+                        <img src="${dataUrl}" alt="Today's moment" class="photo-thumbnail">
+                        <button class="photo-remove-btn" type="button" aria-label="Remove photo" title="Remove photo">×</button>
+                    </div>
+                `;
+                
+                // Add remove button functionality
+                const removeBtn = photoPreview.querySelector('.photo-remove-btn');
+                removeBtn?.addEventListener('click', removePhoto);
+            }
+
+            function removePhoto() {
+                const container = photoPreview.querySelector('.photo-thumbnail-container');
+                if (container) {
+                    // Add fade-out animation
+                    container.classList.add('removing');
+                    setTimeout(() => {
+                        localStorage.removeItem('todaysMoment');
+                        photoInput.value = ''; // Clear the file input
+                        photoPreview.innerHTML = '<span class="photo-placeholder">Capture a special moment from today</span>';
+                        showToast('Photo removed');
+                    }, 300);
+                } else {
+                    localStorage.removeItem('todaysMoment');
+                    photoInput.value = '';
+                    photoPreview.innerHTML = '<span class="photo-placeholder">Capture a special moment from today</span>';
+                }
             }
         }
 
@@ -2828,6 +3156,23 @@
             }, 3000);
         }
 
+        // Instant toast - no delay before showing
+        function showToastInstant(message) {
+            // Remove any existing toasts first to prevent duplicates
+            document.querySelectorAll('.toast:not(.celebration)').forEach(t => t.remove());
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            toast.setAttribute('role', 'alert');
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'toast-slide-up 0.4s var(--ease-smooth) reverse forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
+
         // ============================================
         // MAIN INITIALIZATION
         // ============================================
@@ -2886,9 +3231,10 @@
                     // Update count
                     if (!wasCompleted) {
                         appState.completedHabits++;
-                        showToast('Habit completed! 🌟');
                     } else {
                         appState.completedHabits--;
+                        // Reset celebration flag when unchecking
+                        appState.celebrationShown = false;
                     }
                     
                     // Update progress bar
@@ -2897,10 +3243,18 @@
                         progressFill.style.width = percent + '%';
                     }
                     
-                    // Check for all complete
-                    if (appState.completedHabits === appState.totalHabits) {
+                    // Check for all complete - only show once
+                    if (appState.completedHabits === appState.totalHabits && !appState.celebrationShown) {
+                        appState.celebrationShown = true;
+                        // Play BOTH sounds simultaneously for celebration
+                        playSound('all-complete-sound-1');
+                        playSound('all-complete-sound-2');
                         triggerConfetti();
+                        // Show ONLY celebration toast (not the regular one)
                         showCelebrationToast("🎉 All habits complete! You're amazing, mama!");
+                    } else if (!wasCompleted && appState.completedHabits < appState.totalHabits) {
+                        // Show regular toast only if not all habits complete
+                        showToastInstant('Habit completed! 🌟');
                     }
                 });
 
@@ -2950,7 +3304,7 @@
                         chatInput.parentElement.before(userBubble);
 
                         chatInput.value = '';
-                        showTypingIndicator(chatCard);
+                        showTypingIndicator(chatCard, message);
                     }
                 };
 
@@ -2962,26 +3316,30 @@
                 });
             }
 
-            function showTypingIndicator(container) {
+            function showTypingIndicator(container, userMessage) {
                 const indicator = document.createElement('div');
                 indicator.className = 'typing-indicator';
                 indicator.innerHTML = '<span></span><span></span><span></span>';
                 container.querySelector('.chat-input-placeholder').before(indicator);
 
+                // Get contextual AI response based on user message
+                const aiResponse = getAIResponse(userMessage);
+
                 setTimeout(() => {
                     indicator.remove();
                     const response = document.createElement('div');
                     response.className = 'chat-bubble';
-                    response.textContent = "Thank you for sharing. I'm here to support you through this journey. 💜";
+                    response.textContent = aiResponse;
                     response.setAttribute('role', 'article');
                     response.setAttribute('aria-label', 'AI Coach message');
                     container.querySelector('.chat-input-placeholder').before(response);
-                }, 2000);
+                }, 1500);
             }
 
             // ============================================
             // INITIALIZE ALL FEATURES
             // ============================================
+            initSoundSystem();
             initQuickWins();
             initGraceDaySystem();
             initPhotoUpload();
