@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mother Habit Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================
+           PRIORITY 1: ENHANCED COLOR SYSTEM
+           ============================================ */
+        :root {
+            /* Primary Brand Colors - Refined Scale */
+            --primary-lavender-50: #F5F0FF;
+            --primary-lavender-100: #E8DFF5;
+            --primary-lavender-200: #D4C2E8;
+            --primary-lavender-500: #9575CD;
+            --primary-lavender-700: #6A4C93;
+            
+            --soft-pink-50: #FFF0F5;
+            --soft-pink-100: #FCE4EC;
+            --soft-pink-300: #F8BBD0;
+            --soft-pink-500: #F48FB1;
+            --soft-pink-700: #C2185B;
+            
+            --sage-green: #E8F5E9;
+            --warm-cream: #FFF8E7;
+            --soft-blue: #E3F2FD;
+            
+            /* Semantic Colors */
+            --success-green: #4CAF50;
+            --success-green-light: #C8E6C9;
+            --warning-orange: #FF9800;
+            --warning-orange-light: #FFE0B2;
+            --info-blue: #2196F3;
+            --info-blue-light: #BBDEFB;
+            
+            /* Neutral System */
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-400: #BDBDBD;
+            --gray-600: #757575;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* Text Hierarchy */
+            --text-primary: #2C2C2C;
+            --text-secondary: #6B6B6B;
+            --text-tertiary: #9E9E9E;
+            --text-inverse: #FFFFFF;
+            
+            /* Glassmorphism Colors */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, 
+                var(--primary-lavender-100) 0%, 
+                var(--soft-pink-100) 50%, 
+                var(--warm-cream) 100%);
+            
+            --gradient-card: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 100%);
+            
+            --gradient-accent: linear-gradient(135deg, 
+                var(--primary-lavender-500) 0%, 
+                var(--soft-pink-500) 100%);
+            
+            --gradient-animated: linear-gradient(
+                -45deg,
+                var(--primary-lavender-100),
+                var(--soft-pink-100),
+                var(--warm-cream),
+                var(--soft-blue)
+            );
+            --gradient-size: 400% 400%;
+            
+            /* Typography System - Fluid Scaling */
+            --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+            --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.5rem);
+            --text-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+            --text-2xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+            --text-3xl: clamp(2.25rem, 1.8rem + 2.25vw, 3.5rem);
+            
+            --weight-light: 300;
+            --weight-normal: 400;
+            --weight-medium: 500;
+            --weight-semibold: 600;
+            --weight-bold: 700;
+            
+            --leading-tight: 1.25;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.75;
+            
+            --tracking-tight: -0.025em;
+            --tracking-normal: 0;
+            --tracking-wide: 0.025em;
+            
+            /* Animation Timing */
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --glass-bg: rgba(30, 30, 30, 0.7);
+                --glass-border: rgba(255, 255, 255, 0.1);
+                --text-primary: #E0E0E0;
+                --text-secondary: #B0B0B0;
+                --gray-50: #1A1A1A;
+                --gray-100: #252525;
+                --gray-200: #303030;
+            }
+        }
+
+        /* ============================================
+           BODY & BACKGROUND
+           ============================================ */
+        body {
+            font-family: var(--font-body);
+            background: var(--gradient-animated);
+            background-size: var(--gradient-size);
+            animation: gradient-shift 20s ease infinite;
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding-bottom: 100px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Subtle Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(149, 117, 205, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           PRIORITY 1: ENHANCED HEADER
+           ============================================ */
+        .header {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(248, 245, 255, 0.95) 100%
+            );
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.06),
+                0 1px 4px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(149, 117, 205, 0.1);
+        }
+
+        .header h1 {
+            font-size: var(--text-2xl);
+            font-weight: var(--weight-bold);
+            background: linear-gradient(135deg, var(--primary-lavender-700), var(--soft-pink-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: var(--tracking-tight);
+        }
+
+        .header h1::before {
+            content: '🌸';
+            font-size: 1.2em;
+            animation: gentle-float 3s ease-in-out infinite;
+            display: inline-block;
+            -webkit-text-fill-color: initial;
+        }
+
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(5deg); }
+        }
+
+        .header p {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-weight: var(--weight-normal);
+        }
+
+        /* ============================================
+           PRIORITY 1: FLOATING NAVIGATION BAR
+           ============================================ */
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 12px 8px;
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 600px;
+            border-radius: 24px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--glass-border);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: var(--text-xs);
+            font-weight: var(--weight-medium);
+            min-width: 64px;
+            min-height: 44px;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border: none;
+        }
+
+        .nav-item.active {
+            background: var(--gradient-accent);
+            color: var(--text-inverse);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 4px 12px rgba(149, 117, 205, 0.3),
+                0 2px 4px rgba(149, 117, 205, 0.2);
+        }
+
+        .nav-item.active .icon {
+            transform: scale(1.1);
+        }
+
+        .nav-item:not(.active):hover {
+            background: rgba(149, 117, 205, 0.1);
+            color: var(--primary-lavender-700);
+            transform: translateY(-1px);
+        }
+
+        .nav-item:focus-visible {
+            outline: 3px solid var(--primary-lavender-500);
+            outline-offset: 2px;
+        }
+
+        .nav-item .icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            transition: transform 0.3s var(--ease-smooth);
+        }
+
+        .nav-item:active .icon {
+            transform: scale(0.9);
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        .main-content {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           PRIORITY 2: PAGE TRANSITIONS
+           ============================================ */
+        .page {
+            display: none;
+            animation: page-fade-in 0.5s var(--ease-smooth);
+        }
+
+        .page.active {
+            display: block;
+            animation: page-fade-in 0.5s var(--ease-smooth);
+        }
+
+        @keyframes page-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           PAGE HEADERS
+           ============================================ */
+        .page-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .page-header h2 {
+            font-size: var(--text-2xl);
+            font-weight: var(--weight-bold);
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: var(--tracking-tight);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: var(--text-base);
+            font-weight: var(--weight-normal);
+        }
+
+        /* ============================================
+           PRIORITY 1: GLASSMORPHISM CARDS
+           ============================================ */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
+            animation: card-stagger 0.6s var(--ease-smooth) backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes card-stagger {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .card:focus-visible {
+            outline: 3px solid var(--primary-lavender-500);
+            outline-offset: 4px;
+        }
+
+        /* Colored Card Variants */
+        .card.lavender {
+            background: linear-gradient(
+                135deg,
+                rgba(232, 223, 245, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            border-color: rgba(149, 117, 205, 0.2);
+        }
+
+        .card.pink {
+            background: linear-gradient(
+                135deg,
+                rgba(252, 228, 236, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            border-color: rgba(244, 143, 177, 0.2);
+        }
+
+        .card.green {
+            background: linear-gradient(
+                135deg,
+                rgba(232, 245, 233, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            border-color: rgba(129, 199, 132, 0.2);
+        }
+
+        .card.cream {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 248, 231, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            border-color: rgba(255, 183, 77, 0.2);
+        }
+
+        .card.blue {
+            background: linear-gradient(
+                135deg,
+                rgba(227, 242, 253, 0.8) 0%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            border-color: rgba(100, 181, 246, 0.2);
+        }
+
+        .card-title {
+            font-size: var(--text-lg);
+            font-weight: var(--weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            line-height: var(--leading-tight);
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            line-height: var(--leading-relaxed);
+            font-size: var(--text-base);
+        }
+
+        /* ============================================
+           PRIORITY 1: INTERACTIVE HABIT ITEMS
+           ============================================ */
+        .placeholder-item,
+        .habit-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: var(--gray-50);
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s var(--ease-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .placeholder-item::before,
+        .habit-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-accent);
+            transform: scaleY(0);
+            transition: transform 0.3s var(--ease-smooth);
+        }
+
+        .placeholder-item:hover,
+        .habit-item:hover {
+            background: var(--white);
+            border-color: var(--primary-lavender-200);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .placeholder-item:hover::before,
+        .habit-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .placeholder-item.completed,
+        .habit-item.completed {
+            background: linear-gradient(
+                135deg,
+                var(--success-green-light) 0%,
+                var(--white) 100%
+            );
+            border-color: var(--success-green);
+        }
+
+        .placeholder-icon,
+        .habit-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 1.5rem;
+            background: var(--gradient-accent);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.3);
+            transition: all 0.3s var(--ease-smooth);
+            flex-shrink: 0;
+        }
+
+        .placeholder-item:hover .placeholder-icon,
+        .habit-item:hover .habit-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 16px rgba(149, 117, 205, 0.4);
+        }
+
+        .placeholder-icon.purple,
+        .habit-icon.purple { background: var(--gradient-accent); }
+        .placeholder-icon.pink,
+        .habit-icon.pink { background: linear-gradient(135deg, var(--soft-pink-500), var(--soft-pink-300)); }
+        .placeholder-icon.green,
+        .habit-icon.green { background: linear-gradient(135deg, var(--success-green), #81C784); }
+        .placeholder-icon.orange,
+        .habit-icon.orange { background: linear-gradient(135deg, var(--warning-orange), #FFB74D); }
+        .placeholder-icon.blue,
+        .habit-icon.blue { background: linear-gradient(135deg, var(--info-blue), #64B5F6); }
+
+        .placeholder-text,
+        .habit-text {
+            flex: 1;
+        }
+
+        .placeholder-text h4,
+        .habit-text h4 {
+            font-size: var(--text-base);
+            font-weight: var(--weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .placeholder-text p,
+        .habit-text p {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        /* Habit Checkbox */
+        .habit-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: 2px solid var(--gray-400);
+            margin-left: auto;
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .habit-checkbox.checked {
+            background: var(--gradient-accent);
+            border-color: transparent;
+        }
+
+        .habit-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: var(--white);
+            font-weight: bold;
+            animation: checkmark-pop 0.3s var(--ease-smooth) forwards;
+        }
+
+        @keyframes checkmark-pop {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); }
+            50% { transform: translate(-50%, -50%) scale(1.2) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        }
+
+        /* ============================================
+           PRIORITY 1: ENHANCED PROGRESS BARS
+           ============================================ */
+        .progress-bar {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 16px;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 12px;
+            background: var(--gradient-accent);
+            position: relative;
+            overflow: hidden;
+            transition: width 0.8s var(--ease-smooth);
+            box-shadow: 
+                0 2px 8px rgba(149, 117, 205, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: progress-shine 2s infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .progress-fill.purple { 
+            background: linear-gradient(90deg, var(--primary-lavender-500), var(--primary-lavender-200));
+        }
+        .progress-fill.pink { 
+            background: linear-gradient(90deg, var(--soft-pink-500), var(--soft-pink-300));
+        }
+        .progress-fill.green { 
+            background: linear-gradient(90deg, var(--success-green), #81C784);
+        }
+        .progress-fill.orange { 
+            background: linear-gradient(90deg, var(--warning-orange), #FFB74D);
+        }
+        .progress-fill.blue { 
+            background: linear-gradient(90deg, var(--info-blue), #64B5F6);
+        }
+
+        /* ============================================
+           PRIORITY 1: ENHANCED STAT CARDS
+           ============================================ */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .stat-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 24px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s var(--ease-smooth);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .stat-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-value {
+            font-size: var(--text-2xl);
+            font-weight: var(--weight-bold);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            animation: count-up 1s ease-out;
+        }
+
+        @keyframes count-up {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: var(--weight-medium);
+        }
+
+        /* ============================================
+           PRIORITY 1: ENHANCED LEVEL ITEMS
+           ============================================ */
+        .level-item {
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 16px;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .level-item:hover {
+            background: var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .level-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: var(--weight-semibold);
+            color: var(--text-primary);
+            font-size: var(--text-base);
+        }
+
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--gradient-accent);
+            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.3);
+        }
+
+        .level-value {
+            font-size: var(--text-lg);
+            font-weight: var(--weight-bold);
+            color: var(--primary-lavender-700);
+        }
+
+        .level-progress-bar {
+            height: 16px;
+            background: var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .level-progress-fill {
+            height: 100%;
+            border-radius: 16px;
+            position: relative;
+            transition: width 0.8s var(--ease-smooth);
+            box-shadow: 
+                0 2px 8px rgba(149, 117, 205, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .level-progress-fill.purple {
+            background: linear-gradient(90deg, var(--primary-lavender-500), var(--primary-lavender-300));
+        }
+
+        .level-progress-fill.orange {
+            background: linear-gradient(90deg, var(--warning-orange), #FFB74D);
+        }
+
+        .level-progress-fill.pink {
+            background: linear-gradient(90deg, var(--soft-pink-500), var(--soft-pink-300));
+        }
+
+        .level-progress-fill.green {
+            background: linear-gradient(90deg, var(--success-green), #81C784);
+        }
+
+        /* ============================================
+           PRIORITY 2: ENHANCED CHAT INTERFACE
+           ============================================ */
+        .chat-bubble {
+            background: var(--primary-lavender-100);
+            padding: 16px 20px;
+            border-radius: 20px 20px 20px 6px;
+            margin-bottom: 16px;
+            max-width: 85%;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            animation: bubble-in 0.4s var(--ease-smooth);
+            line-height: var(--leading-relaxed);
+        }
+
+        .chat-bubble.user {
+            background: var(--gradient-accent);
+            color: var(--white);
+            margin-left: auto;
+            border-radius: 20px 20px 6px 20px;
+            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.3);
+        }
+
+        @keyframes bubble-in {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 16px 20px;
+            background: var(--primary-lavender-100);
+            border-radius: 20px 20px 20px 6px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-lavender-500);
+            animation: typing-bounce 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing-bounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced Chat Input */
+        .chat-input-placeholder {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            align-items: center;
+        }
+
+        .chat-input-placeholder input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid var(--primary-lavender-200);
+            border-radius: 24px;
+            font-size: var(--text-base);
+            outline: none;
+            transition: all 0.3s var(--ease-smooth);
+            background: var(--white);
+        }
+
+        .chat-input-placeholder input:focus {
+            border-color: var(--primary-lavender-500);
+            box-shadow: 0 0 0 4px rgba(149, 117, 205, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .chat-input-placeholder button {
+            background: var(--gradient-accent);
+            color: var(--white);
+            border: none;
+            padding: 16px 24px;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: var(--text-base);
+            font-weight: var(--weight-semibold);
+            transition: all 0.3s var(--ease-smooth);
+            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.3);
+            min-width: 80px;
+        }
+
+        .chat-input-placeholder button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(149, 117, 205, 0.4);
+        }
+
+        .chat-input-placeholder button:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           PRIORITY 2: LOADING STATES
+           ============================================ */
+        .skeleton {
+            background: linear-gradient(
+                90deg,
+                var(--gray-200) 0%,
+                var(--gray-100) 50%,
+                var(--gray-200) 100%
+            );
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--primary-lavender-200);
+            border-top-color: var(--primary-lavender-500);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================
+           PRIORITY 2: SUCCESS/FEEDBACK ANIMATIONS
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--success-green);
+            color: var(--white);
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+            z-index: 1000;
+            animation: toast-slide-up 0.4s var(--ease-smooth) forwards;
+            font-weight: var(--weight-medium);
+        }
+
+        @keyframes toast-slide-up {
+            to {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* ============================================
+           PRIORITY 3: RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 16px;
+            }
+            
+            .card {
+                padding: 20px;
+                border-radius: 20px;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .nav {
+                bottom: 12px;
+                width: calc(100% - 24px);
+                padding: 10px 6px;
+            }
+            
+            .nav-item {
+                padding: 8px 12px;
+                min-width: 56px;
+                font-size: 0.65rem;
+            }
+
+            .header h1 {
+                font-size: var(--text-xl);
+            }
+
+            .page-header h2 {
+                font-size: var(--text-xl);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .main-content {
+                max-width: 700px;
+            }
+        }
+
+        /* ============================================
+           PRIORITY 3: ACCESSIBILITY ENHANCEMENTS
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus states for keyboard navigation */
+        button:focus-visible,
+        input:focus-visible,
+        .nav-item:focus-visible {
+            outline: 3px solid var(--primary-lavender-500);
+            outline-offset: 2px;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Subtle Particle Effect -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <h1>Mother Habit Tracker</h1>
+        <p>Nurturing yourself, nurturing your little one</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <!-- Today Page -->
+        <section id="today" class="page active" role="region" aria-labelledby="today-heading">
+            <div class="page-header">
+                <h2 id="today-heading">Today</h2>
+                <p id="today-date">Wednesday, December 24</p>
+            </div>
+
+            <div class="card lavender" role="article">
+                <div class="card-title">🌅 Good Morning, Mama!</div>
+                <div class="card-content">
+                    You're doing amazing. Here's your wellness check-in for today.
+                </div>
+            </div>
+
+            <div class="card" role="article" aria-labelledby="habits-title">
+                <div class="card-title" id="habits-title">📋 Today's Habits</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Drink Water habit">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
+                        <h4>Drink Water</h4>
+                        <p>Stay hydrated for you and baby</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="5-Minute Stretch habit">
+                    <div class="placeholder-icon pink">🧘</div>
+                    <div class="placeholder-text">
+                        <h4>5-Minute Stretch</h4>
+                        <p>Gentle movement for recovery</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Rest When Baby Rests habit">
+                    <div class="placeholder-icon green">😴</div>
+                    <div class="placeholder-text">
+                        <h4>Rest When Baby Rests</h4>
+                        <p>Self-care is not selfish</p>
+                    </div>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Habits completion progress">
+                    <div class="progress-fill purple" style="width: 33%;"></div>
+                </div>
+            </div>
+
+            <div class="card pink" role="article">
+                <div class="card-title">💭 Daily Affirmation</div>
+                <div class="card-content">
+                    "I am exactly the mother my baby needs. I trust myself and my journey."
+                </div>
+            </div>
+        </section>
+
+        <!-- Habits Page -->
+        <section id="habits" class="page" role="region" aria-labelledby="habits-page-heading">
+            <div class="page-header">
+                <h2 id="habits-page-heading">My Habits</h2>
+                <p>Build routines that support your wellness</p>
+            </div>
+
+            <div class="card" role="article" aria-labelledby="active-habits-title">
+                <div class="card-title" id="active-habits-title">💪 Active Habits</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Hydration habit">
+                    <div class="placeholder-icon purple">💧</div>
+                    <div class="placeholder-text">
+                        <h4>Hydration</h4>
+                        <p>8 glasses daily • 5 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit">
+                    <div class="placeholder-icon pink">💊</div>
+                    <div class="placeholder-text">
+                        <h4>Prenatal Vitamins</h4>
+                        <p>Once daily • 12 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit">
+                    <div class="placeholder-icon green">🌿</div>
+                    <div class="placeholder-text">
+                        <h4>Fresh Air Walk</h4>
+                        <p>15 minutes • 3 day streak</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit">
+                    <div class="placeholder-icon orange">📔</div>
+                    <div class="placeholder-text">
+                        <h4>Gratitude Journal</h4>
+                        <p>Evening • 7 day streak</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card green" role="article">
+                <div class="card-title">✨ Suggested Habits</div>
+                <div class="card-content">
+                    Based on your journey, you might enjoy adding: Pelvic floor exercises, Skin-to-skin time, or a Mindful breathing practice.
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Page -->
+        <section id="insights" class="page" role="region" aria-labelledby="insights-heading">
+            <div class="page-header">
+                <h2 id="insights-heading">Insights</h2>
+                <p>Celebrate your progress</p>
+            </div>
+
+            <div class="card lavender" role="article" aria-labelledby="summary-title">
+                <div class="card-title" id="summary-title">📊 This Week's Summary</div>
+                <div class="stat-grid">
+                    <div class="stat-item" role="article">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Habits Completed</div>
+                    </div>
+                    <div class="stat-item" role="article">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-item" role="article">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Active Habits</div>
+                    </div>
+                    <div class="stat-item" role="article">
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">Total Check-ins</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" role="article" aria-labelledby="achievements-title">
+                <div class="card-title" id="achievements-title">🏆 Recent Achievements</div>
+                <div class="placeholder-item" role="article">
+                    <div class="placeholder-icon green">⭐</div>
+                    <div class="placeholder-text">
+                        <h4>First Week Complete!</h4>
+                        <p>You've been consistent for 7 days</p>
+                    </div>
+                </div>
+                <div class="placeholder-item" role="article">
+                    <div class="placeholder-icon orange">🌟</div>
+                    <div class="placeholder-text">
+                        <h4>Hydration Hero</h4>
+                        <p>Met water goal 5 days in a row</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card cream" role="article">
+                <div class="card-title">💡 Wellness Tip</div>
+                <div class="card-content">
+                    Your most consistent habit is taking vitamins in the morning. Try "habit stacking" by adding another small habit right after!
+                </div>
+            </div>
+        </section>
+
+        <!-- My Levels Page -->
+        <section id="levels" class="page" role="region" aria-labelledby="levels-heading">
+            <div class="page-header">
+                <h2 id="levels-heading">My Levels</h2>
+                <p>Track how you're feeling</p>
+            </div>
+
+            <div class="card" role="article" aria-labelledby="checkin-title">
+                <div class="card-title" id="checkin-title">🌡️ Today's Check-in</div>
+                
+                <div class="level-item" role="article">
+                    <div class="level-header">
+                        <span class="level-name">😴 Sleep Quality</span>
+                        <span class="level-value">6/10</span>
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Sleep Quality: 6 out of 10">
+                        <div class="progress-fill purple" style="width: 60%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item" role="article">
+                    <div class="level-header">
+                        <span class="level-name">⚡ Energy Level</span>
+                        <span class="level-value">5/10</span>
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Energy Level: 5 out of 10">
+                        <div class="progress-fill orange" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item" role="article">
+                    <div class="level-header">
+                        <span class="level-name">😊 Mood</span>
+                        <span class="level-value">7/10</span>
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Mood: 7 out of 10">
+                        <div class="progress-fill pink" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="level-item" role="article">
+                    <div class="level-header">
+                        <span class="level-name">💪 Physical Comfort</span>
+                        <span class="level-value">6/10</span>
+                    </div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Physical Comfort: 6 out of 10">
+                        <div class="progress-fill green" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card blue" role="article">
+                <div class="card-title">📈 Weekly Trends</div>
+                <div class="card-content">
+                    Your mood has been steadily improving over the past week. Sleep quality tends to be better on days when you complete your evening wind-down routine.
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Coach Page -->
+        <section id="coach" class="page" role="region" aria-labelledby="coach-heading">
+            <div class="page-header">
+                <h2 id="coach-heading">AI Coach</h2>
+                <p>Your supportive wellness companion</p>
+            </div>
+
+            <div class="card" role="article" aria-labelledby="chat-title">
+                <div class="card-title" id="chat-title">💬 Chat with Your Coach</div>
+                
+                <div class="chat-bubble" role="article" aria-label="AI Coach message">
+                    Hi there, mama! 🌸 I'm here to support you on your postpartum journey. How are you feeling today? Remember, there's no wrong answer – I'm here to listen and help.
+                </div>
+
+                <div class="chat-bubble user" role="article" aria-label="Your message">
+                    I'm feeling a bit overwhelmed today.
+                </div>
+
+                <div class="chat-bubble" role="article" aria-label="AI Coach message">
+                    That's completely understandable, and thank you for sharing that with me. Feeling overwhelmed is so normal during this time. Would you like some gentle suggestions for managing these feelings, or would you prefer to just talk about what's on your mind?
+                </div>
+
+                <div class="chat-input-placeholder">
+                    <input type="text" placeholder="Type your message..." aria-label="Chat message input">
+                    <button type="button" aria-label="Send message">Send</button>
+                </div>
+            </div>
+
+            <div class="card pink" role="article">
+                <div class="card-title">🎯 Quick Topics</div>
+                <div class="card-content">
+                    • Sleep strategies for new moms<br>
+                    • Managing postpartum emotions<br>
+                    • Self-care in small moments<br>
+                    • Building a support system
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-item active" 
+                aria-label="Today page" 
+                aria-current="page"
+                data-page="today"
+                type="button">
+            <span class="icon" aria-hidden="true">🏠</span>
+            Today
+        </button>
+        <button class="nav-item" 
+                aria-label="Habits page"
+                data-page="habits"
+                type="button">
+            <span class="icon" aria-hidden="true">✓</span>
+            Habits
+        </button>
+        <button class="nav-item" 
+                aria-label="Insights page"
+                data-page="insights"
+                type="button">
+            <span class="icon" aria-hidden="true">📊</span>
+            Insights
+        </button>
+        <button class="nav-item" 
+                aria-label="My Levels page"
+                data-page="levels"
+                type="button">
+            <span class="icon" aria-hidden="true">💫</span>
+            My Levels
+        </button>
+        <button class="nav-item" 
+                aria-label="AI Coach page"
+                data-page="coach"
+                type="button">
+            <span class="icon" aria-hidden="true">🤖</span>
+            AI Coach
+        </button>
+    </nav>
+
+    <script>
+        // ============================================
+        // PRIORITY 3: PERFORMANCE OPTIMIZATIONS
+        // ============================================
+        
+        // Debounce utility
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // ============================================
+        // NAVIGATION FUNCTIONALITY
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+
+            // Observe cards for animation
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-page');
+
+                    // Update active nav item
+                    navItems.forEach(nav => {
+                        nav.classList.remove('active');
+                        nav.setAttribute('aria-current', 'false');
+                    });
+                    this.classList.add('active');
+                    this.setAttribute('aria-current', 'page');
+
+                    // Show target page, hide others
+                    pages.forEach(page => {
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                            page.setAttribute('aria-hidden', 'false');
+                        } else {
+                            page.classList.remove('active');
+                            page.setAttribute('aria-hidden', 'true');
+                        }
+                    });
+
+                    // Scroll to top of page
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // Update date display
+            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('en-US', dateOptions);
+            const dateElement = document.querySelector('#today-date');
+            if (dateElement) {
+                dateElement.textContent = today;
+            }
+
+            // ============================================
+            // PRIORITY 3: PARTICLE EFFECT
+            // ============================================
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                const particleCount = 15;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // ============================================
+            // HABIT ITEM INTERACTIONS
+            // ============================================
+            const habitItems = document.querySelectorAll('.placeholder-item[role="button"]');
+            habitItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle completed state
+                    this.classList.toggle('completed');
+                    
+                    // Show success toast
+                    showToast('Habit completed! 🌟');
+                });
+
+                // Keyboard support
+                item.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // ============================================
+            // CHAT FUNCTIONALITY
+            // ============================================
+            const chatInput = document.querySelector('.chat-input-placeholder input');
+            const chatButton = document.querySelector('.chat-input-placeholder button');
+            
+            if (chatInput && chatButton) {
+                const sendMessage = () => {
+                    const message = chatInput.value.trim();
+                    if (message) {
+                        // Add user message
+                        const chatCard = chatInput.closest('.card');
+                        const userBubble = document.createElement('div');
+                        userBubble.className = 'chat-bubble user';
+                        userBubble.textContent = message;
+                        userBubble.setAttribute('role', 'article');
+                        userBubble.setAttribute('aria-label', 'Your message');
+                        chatInput.parentElement.before(userBubble);
+
+                        // Clear input
+                        chatInput.value = '';
+
+                        // Show typing indicator
+                        showTypingIndicator(chatCard);
+                    }
+                };
+
+                chatButton.addEventListener('click', sendMessage);
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+
+            // Typing indicator function
+            function showTypingIndicator(container) {
+                const indicator = document.createElement('div');
+                indicator.className = 'typing-indicator';
+                indicator.innerHTML = '<span></span><span></span><span></span>';
+                container.querySelector('.chat-input-placeholder').before(indicator);
+
+                setTimeout(() => {
+                    indicator.remove();
+                    const response = document.createElement('div');
+                    response.className = 'chat-bubble';
+                    response.textContent = "Thank you for sharing. I'm here to support you through this journey. 💜";
+                    response.setAttribute('role', 'article');
+                    response.setAttribute('aria-label', 'AI Coach message');
+                    container.querySelector('.chat-input-placeholder').before(response);
+                }, 2000);
+            }
+
+            // ============================================
+            // PRIORITY 2: TOAST NOTIFICATIONS
+            // ============================================
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                toast.setAttribute('role', 'alert');
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.animation = 'toast-slide-up 0.4s var(--ease-smooth) reverse forwards';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3000);
+            }
+
+            // ============================================
+            // PRIORITY 3: PERFORMANCE - Debounced scroll
+            // ============================================
+            const handleScroll = debounce(() => {
+                // Any scroll-based animations can go here
+            }, 100);
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+            // ============================================
+            // ACCESSIBILITY: Set initial aria-hidden
+            // ============================================
+            pages.forEach(page => {
+                if (!page.classList.contains('active')) {
+                    page.setAttribute('aria-hidden', 'true');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
