@@ -2739,6 +2739,9 @@
             const waterClose = document.getElementById('water-close');
             const waterGlasses = document.querySelectorAll('.water-glass');
 
+            // Create water droplet sound for the water tracker
+            const waterDropletSound = new Audio('Sounds/344 Audio - Bubbles - Small Bubble Water Drop.mp3');
+
             waterBtn?.addEventListener('click', () => {
                 waterModal.classList.add('active');
                 updateWaterDisplay();
@@ -2747,7 +2750,11 @@
             waterPlus?.addEventListener('click', () => {
                 if (appState.waterCount < 8) {
                     appState.waterCount++;
-                    playSound('water-droplet-sound');
+                    // Play water droplet sound
+                    if (appState.soundEnabled) {
+                        waterDropletSound.currentTime = 0;
+                        waterDropletSound.play().catch(e => console.log('Audio play failed:', e));
+                    }
                     updateWaterDisplay();
                     if (appState.waterCount === 8) {
                         showToast('🎉 Water goal complete!');
@@ -2758,7 +2765,11 @@
             waterMinus?.addEventListener('click', () => {
                 if (appState.waterCount > 0) {
                     appState.waterCount--;
-                    playSound('water-droplet-sound');
+                    // Play water droplet sound
+                    if (appState.soundEnabled) {
+                        waterDropletSound.currentTime = 0;
+                        waterDropletSound.play().catch(e => console.log('Audio play failed:', e));
+                    }
                     updateWaterDisplay();
                 }
             });
