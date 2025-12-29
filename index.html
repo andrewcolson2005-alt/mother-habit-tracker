@@ -1301,55 +1301,74 @@
 
         /* ============================================
            FEATURE 5: QUICK WINS SHORTCUT BUTTONS
+           Mobile-first: All 5 buttons visible without scrolling
            ============================================ */
         .quick-wins-container {
             margin-bottom: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .quick-wins-container::-webkit-scrollbar {
-            display: none;
+            overflow-x: hidden;
+            padding: 4px;
         }
 
         .quick-wins {
             display: flex;
-            gap: 10px;
-            padding: 4px;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
         }
 
         .quick-win-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 10px 16px;
-            min-width: auto;
-            height: 40px;
+            gap: 4px;
+            padding: 8px 12px;
+            height: 36px;
             background: var(--gradient-accent);
             color: #FFFFFF;
             border: none;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border-radius: 18px;
+            font-size: 0.75rem;
             font-weight: var(--weight-medium);
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s var(--ease-smooth);
-            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.25);
-            flex-shrink: 0;
-            overflow: visible;
-            text-overflow: clip;
+            box-shadow: 0 3px 10px rgba(149, 117, 205, 0.25);
+            flex: 0 1 auto;
         }
 
         .quick-win-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(149, 117, 205, 0.35);
+            box-shadow: 0 5px 14px rgba(149, 117, 205, 0.35);
         }
 
         .quick-win-btn:active {
             transform: translateY(0);
+        }
+
+        /* Tablet and up - slightly larger buttons */
+        @media (min-width: 480px) {
+            .quick-win-btn {
+                padding: 10px 14px;
+                height: 38px;
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+        }
+
+        /* Desktop - full size buttons in single row */
+        @media (min-width: 600px) {
+            .quick-wins {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+            }
+            
+            .quick-win-btn {
+                padding: 10px 16px;
+                height: 40px;
+                font-size: 0.85rem;
+                gap: 6px;
+                flex: 1 1 0;
+            }
         }
 
         /* ============================================
@@ -1559,12 +1578,19 @@
         /* Timer Alert Animation */
         .timer-display.alert {
             animation: timer-alert 0.5s ease-in-out 3;
-            color: var(--soft-pink-300);
+            color: var(--success-green-light);
+            text-shadow: 0 0 20px rgba(124, 185, 132, 0.5);
+        }
+
+        /* Breathing timer uses lavender color */
+        #breathing-timer.alert {
+            color: var(--primary-lavender-200);
+            text-shadow: 0 0 20px rgba(184, 165, 217, 0.5);
         }
 
         @keyframes timer-alert {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
         }
 
         .timer-complete-message {
@@ -1577,6 +1603,16 @@
         @keyframes fade-in {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Photo fade-out animation */
+        .photo-thumbnail-container.removing {
+            animation: photo-fade-out 0.3s ease-out forwards;
+        }
+
+        @keyframes photo-fade-out {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.8); }
         }
 
         /* ============================================
@@ -1941,9 +1977,13 @@
     <div class="particles" id="particles"></div>
 
     <!-- Audio Elements for Sound Effects -->
-    <audio id="habit-complete-sound" src="sounds/habit-complete.mp3" preload="auto"></audio>
-    <audio id="all-complete-sound" src="sounds/all-complete.mp3" preload="auto"></audio>
-    <audio id="timer-end-sound" src="sounds/timer-end.mp3" preload="auto"></audio>
+    <!-- All habits complete: Party blower + Baby laughing (play simultaneously) -->
+    <audio id="all-complete-sound-1" src="sounds/BOOM Library - Cartoon Elements - Party Blower Hooting.wav" preload="auto"></audio>
+    <audio id="all-complete-sound-2" src="sounds/DB studios - Baby laughing joyfully.wav" preload="auto"></audio>
+    <!-- 2-Min Stretch timer end: Happy toddler laughing -->
+    <audio id="stretch-timer-sound" src="sounds/Julien Matthey - Human Reactions - Happy Toddler Laughing.wav" preload="auto"></audio>
+    <!-- Deep Breath timer end: Baby squealing -->
+    <audio id="breath-timer-sound" src="sounds/Sound Ex Machina - Baby - Fourteen Months Old Boy Happy Squealing Babbling Growling.wav" preload="auto"></audio>
 
     <!-- Header -->
     <header class="header" role="banner">
@@ -2740,15 +2780,16 @@
             stretchBtn?.addEventListener('click', () => {
                 timerOverlay.classList.add('active');
                 timerDisplay.classList.remove('alert');
+                document.getElementById('timer-label').textContent = '🧘 Stretch Time';
                 startTimer(120, timerDisplay, () => {
-                    // Play sound and show visual alert
-                    playSound('timer-end-sound');
+                    // Play happy toddler laughing sound
+                    playSound('stretch-timer-sound');
                     timerDisplay.classList.add('alert');
-                    showToast('🧘 Great stretch! You did it!');
+                    document.getElementById('timer-label').textContent = 'Great job, mama! 🎉';
                     setTimeout(() => {
                         timerOverlay.classList.remove('active');
                         timerDisplay.classList.remove('alert');
-                    }, 2000);
+                    }, 3000);
                 });
             });
 
@@ -2822,15 +2863,14 @@
                     
                     if (seconds <= 0) {
                         clearInterval(breathingInterval);
-                        // Play sound and show visual alert
-                        playSound('timer-end-sound');
+                        // Play baby squealing sound
+                        playSound('breath-timer-sound');
                         breathingTimer.classList.add('alert');
-                        breathingText.textContent = 'Complete! 🌟';
-                        showToast('😮‍💨 Great breathing session!');
+                        breathingText.textContent = 'You did it! 💜';
                         setTimeout(() => {
                             breathingOverlay.classList.remove('active');
                             breathingTimer.classList.remove('alert');
-                        }, 2000);
+                        }, 3000);
                     }
                 }, 1000);
             }
@@ -2965,10 +3005,21 @@
             }
 
             function removePhoto() {
-                localStorage.removeItem('todaysMoment');
-                photoInput.value = ''; // Clear the file input
-                photoPreview.innerHTML = '<span class="photo-placeholder">Capture a special moment from today</span>';
-                showToast('Photo removed');
+                const container = photoPreview.querySelector('.photo-thumbnail-container');
+                if (container) {
+                    // Add fade-out animation
+                    container.classList.add('removing');
+                    setTimeout(() => {
+                        localStorage.removeItem('todaysMoment');
+                        photoInput.value = ''; // Clear the file input
+                        photoPreview.innerHTML = '<span class="photo-placeholder">Capture a special moment from today</span>';
+                        showToast('Photo removed');
+                    }, 300);
+                } else {
+                    localStorage.removeItem('todaysMoment');
+                    photoInput.value = '';
+                    photoPreview.innerHTML = '<span class="photo-placeholder">Capture a special moment from today</span>';
+                }
             }
         }
 
@@ -3170,9 +3221,6 @@
                     // Update count
                     if (!wasCompleted) {
                         appState.completedHabits++;
-                        // Play sound and show toast immediately
-                        playSound('habit-complete-sound');
-                        showToastInstant('Habit completed! 🌟');
                     } else {
                         appState.completedHabits--;
                         // Reset celebration flag when unchecking
@@ -3188,12 +3236,15 @@
                     // Check for all complete - only show once
                     if (appState.completedHabits === appState.totalHabits && !appState.celebrationShown) {
                         appState.celebrationShown = true;
-                        playSound('all-complete-sound');
+                        // Play BOTH sounds simultaneously for celebration
+                        playSound('all-complete-sound-1');
+                        playSound('all-complete-sound-2');
                         triggerConfetti();
-                        // Use timeout to let confetti start, then show single celebration toast
-                        setTimeout(() => {
-                            showCelebrationToast("🎉 All habits complete! You're amazing, mama!");
-                        }, 300);
+                        // Show ONLY celebration toast (not the regular one)
+                        showCelebrationToast("🎉 All habits complete! You're amazing, mama!");
+                    } else if (!wasCompleted && appState.completedHabits < appState.totalHabits) {
+                        // Show regular toast only if not all habits complete
+                        showToastInstant('Habit completed! 🌟');
                     }
                 });
 
