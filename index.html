@@ -245,7 +245,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: flex;
+            248
+
+                        position: relative;
             align-items: center;
             justify-content: center;
             gap: 12px;
@@ -258,6 +260,12 @@
             animation: gentle-float 3s ease-in-out infinite;
             display: inline-block;
             -webkit-text-fill-color: initial;
+        }
+
+                .header h1 .flower-icon {
+            position: absolute;
+            left: calc(50% - 180px);
+            transform: translateX(-100%);
         }
 
         @keyframes gentle-float {
@@ -1190,7 +1198,7 @@
 
     <!-- Header -->
     <header class="header" role="banner">
-        <h1>Mother Habit Tracker</h1>
+        <h1><span class="flower-icon">🌸</span> Mother Habit Tracker</h1>
         <p>Nurturing yourself, nurturing your little one</p>
     </header>
 
