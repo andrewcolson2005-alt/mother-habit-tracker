@@ -1176,7 +1176,668 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        /* ============================================
+           FEATURE 1: CONFETTI CELEBRATION
+           ============================================ */
+        .celebration-pulse {
+            animation: celebration-pulse 0.6s ease-out;
+        }
+
+        @keyframes celebration-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .toast.celebration {
+            background: linear-gradient(135deg, var(--primary-lavender-500), var(--soft-pink-500));
+            font-size: var(--text-lg);
+            padding: 20px 32px;
+        }
+
+        /* ============================================
+           FEATURE 2: ENLARGED STATS
+           ============================================ */
+        .stat-item.enlarged {
+            padding: 32px 24px;
+        }
+
+        .stat-item.enlarged .stat-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 20px rgba(149, 117, 205, 0.3);
+        }
+
+        .stat-item.enlarged .stat-label {
+            font-size: var(--text-base);
+            font-weight: var(--weight-semibold);
+        }
+
+        .stat-value.counting {
+            animation: number-glow 0.8s ease-out;
+        }
+
+        @keyframes number-glow {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.8);
+                filter: blur(4px);
+            }
+            50% {
+                filter: blur(0);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* ============================================
+           FEATURE 3: COLOR-CODED HABIT CATEGORIES
+           ============================================ */
+        .placeholder-icon.hydration,
+        .habit-icon.hydration {
+            background: linear-gradient(135deg, #7EB0D5, #A8D0EE);
+            box-shadow: 0 4px 12px rgba(126, 176, 213, 0.4);
+        }
+
+        .placeholder-icon.health,
+        .habit-icon.health {
+            background: linear-gradient(135deg, #F8BBD0, #FCE4EC);
+            box-shadow: 0 4px 12px rgba(248, 187, 208, 0.4);
+        }
+
+        .placeholder-icon.movement,
+        .habit-icon.movement {
+            background: linear-gradient(135deg, #7CB984, #9ED4A4);
+            box-shadow: 0 4px 12px rgba(124, 185, 132, 0.4);
+        }
+
+        .placeholder-icon.rest,
+        .habit-icon.rest {
+            background: linear-gradient(135deg, #B8A5D9, #D4C2E8);
+            box-shadow: 0 4px 12px rgba(184, 165, 217, 0.4);
+        }
+
+        .placeholder-icon.mental,
+        .habit-icon.mental {
+            background: linear-gradient(135deg, #E8B87D, #F5CFA3);
+            box-shadow: 0 4px 12px rgba(232, 184, 125, 0.4);
+        }
+
+        /* ============================================
+           FEATURE 4: ENERGY-BASED SUGGESTIONS
+           ============================================ */
+        .card.suggestion {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 248, 231, 0.95) 0%,
+                rgba(255, 255, 255, 0.95) 100%
+            );
+            border-color: rgba(232, 184, 125, 0.3);
+        }
+
+        .suggestion-text {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            line-height: var(--leading-relaxed);
+        }
+
+        .energy-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--primary-lavender-100);
+            border-radius: 20px;
+            font-size: var(--text-sm);
+            color: var(--primary-lavender-700);
+            margin-bottom: 12px;
+        }
+
+        /* ============================================
+           FEATURE 5: QUICK WINS SHORTCUT BUTTONS
+           ============================================ */
+        .quick-wins-container {
+            margin-bottom: 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .quick-wins-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .quick-wins {
+            display: flex;
+            gap: 10px;
+            padding: 4px;
+        }
+
+        .quick-win-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            height: 40px;
+            background: var(--gradient-accent);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 20px;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s var(--ease-smooth);
+            box-shadow: 0 4px 12px rgba(149, 117, 205, 0.25);
+            flex-shrink: 0;
+        }
+
+        .quick-win-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(149, 117, 205, 0.35);
+        }
+
+        .quick-win-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           FEATURE 6 & 7: GRACE DAY & STREAK FREEZE
+           ============================================ */
+        .streak-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .streak-shield {
+            font-size: 1.2rem;
+            animation: shield-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes shield-glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.5));
+            }
+            50% { 
+                filter: drop-shadow(0 0 12px rgba(255, 193, 7, 0.8));
+            }
+        }
+
+        .grace-day-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #FFD54F, #FFC107);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 16px;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-semibold);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+            margin-top: 16px;
+        }
+
+        .grace-day-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 193, 7, 0.4);
+        }
+
+        .grace-day-btn:disabled {
+            background: var(--primary-lavender-100);
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .grace-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(255, 193, 7, 0.2);
+            border-radius: 12px;
+            font-size: var(--text-xs);
+            color: var(--text-primary);
+        }
+
+        .grace-progress {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            margin-top: 8px;
+        }
+
+        .streak-protected {
+            position: relative;
+        }
+
+        .streak-protected::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 213, 79, 0.3), rgba(255, 193, 7, 0.1));
+            animation: protection-glow 3s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes protection-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ============================================
+           FEATURE 8: PHOTO UPLOAD
+           ============================================ */
+        .photo-upload-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--primary-lavender-100);
+        }
+
+        .photo-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--primary-lavender-50);
+            color: var(--primary-lavender-700);
+            border: 2px dashed var(--primary-lavender-200);
+            border-radius: 12px;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-medium);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .photo-upload-btn:hover {
+            background: var(--primary-lavender-100);
+            border-color: var(--primary-lavender-300);
+        }
+
+        .photo-preview {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .photo-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--primary-lavender-200);
+        }
+
+        .photo-placeholder {
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* ============================================
+           FEATURE 9: ACHIEVEMENT BADGES
+           ============================================ */
+        .achievements-section {
+            margin-top: 20px;
+        }
+
+        .badges-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 8px 0;
+        }
+
+        .badges-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .badges-container {
+            display: flex;
+            gap: 16px;
+        }
+
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            border: 3px solid var(--primary-lavender-200);
+            flex-shrink: 0;
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+        }
+
+        .badge-item.unlocked {
+            border-color: var(--primary-lavender-500);
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        .badge-item.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+
+        .badge-item.locked::after {
+            content: '🔒';
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            font-size: 1rem;
+            background: #FFFFFF;
+            border-radius: 50%;
+            padding: 2px;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(149, 117, 205, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(149, 117, 205, 0);
+            }
+        }
+
+        .badge-icon {
+            font-size: 1.8rem;
+        }
+
+        .badge-label {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 4px;
+            max-width: 70px;
+            line-height: 1.2;
+        }
+
+        /* ============================================
+           FEATURE 10: SWIPE NAVIGATION
+           ============================================ */
+        .swipe-indicator {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--primary-lavender-300);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .swipe-indicator.left {
+            left: 8px;
+        }
+
+        .swipe-indicator.right {
+            right: 8px;
+        }
+
+        .swipe-indicator.show {
+            opacity: 1;
+            animation: swipe-hint 1.5s ease-in-out infinite;
+        }
+
+        @keyframes swipe-hint {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(5px); }
+        }
+
+        .swipe-indicator.left.show {
+            animation: swipe-hint-left 1.5s ease-in-out infinite;
+        }
+
+        @keyframes swipe-hint-left {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-5px); }
+        }
+
+        .page.swiping {
+            transition: transform 0.05s linear;
+        }
+
+        .page.swipe-transition {
+            transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+        }
+
+        /* ============================================
+           MODAL STYLES
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 59, 92, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 90%;
+            width: 360px;
+            box-shadow: 0 20px 60px rgba(149, 117, 205, 0.3);
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-title {
+            font-size: var(--text-xl);
+            font-weight: var(--weight-bold);
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .modal-content {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 24px;
+            line-height: var(--leading-relaxed);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-size: var(--text-base);
+            font-weight: var(--weight-semibold);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            border: none;
+        }
+
+        .modal-btn.primary {
+            background: var(--gradient-accent);
+            color: #FFFFFF;
+        }
+
+        .modal-btn.secondary {
+            background: var(--primary-lavender-50);
+            color: var(--primary-lavender-700);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Timer Overlay */
+        .timer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(74, 59, 92, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .timer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+        }
+
+        .timer-label {
+            font-size: var(--text-xl);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .timer-close {
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            color: #FFFFFF;
+            font-size: var(--text-base);
+            font-weight: var(--weight-semibold);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .timer-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Breathing Guide */
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-lavender-500), var(--soft-pink-500));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+        }
+
+        .breathing-text {
+            font-size: var(--text-2xl);
+            font-weight: var(--weight-bold);
+            color: #FFFFFF;
+        }
+
+        /* Quick Note Modal */
+        .quick-note-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid var(--primary-lavender-200);
+            border-radius: 16px;
+            font-size: var(--text-base);
+            font-family: var(--font-body);
+            resize: none;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .quick-note-textarea:focus {
+            outline: none;
+            border-color: var(--primary-lavender-500);
+        }
+
+        /* Water Counter */
+        .water-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .water-count {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .water-glasses {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 200px;
+        }
+
+        .water-glass {
+            font-size: 1.5rem;
+            opacity: 0.3;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .water-glass.filled {
+            opacity: 1;
+            transform: scale(1.1);
+        }
     </style>
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <!-- Fixed Background Image - Mother & Child -->
@@ -1203,6 +1864,27 @@
                 <p id="today-date">Wednesday, December 24</p>
             </div>
 
+            <!-- Quick Wins Shortcut Buttons -->
+            <div class="quick-wins-container" role="region" aria-label="Quick actions">
+                <div class="quick-wins">
+                    <button class="quick-win-btn" id="quick-water" type="button" aria-label="Log water intake">
+                        💧 Log Water
+                    </button>
+                    <button class="quick-win-btn" id="quick-stretch" type="button" aria-label="Start 2 minute stretch timer">
+                        🧘 2-Min Stretch
+                    </button>
+                    <button class="quick-win-btn" id="quick-breath" type="button" aria-label="Start breathing guide">
+                        😮‍💨 Deep Breath
+                    </button>
+                    <button class="quick-win-btn" id="quick-note" type="button" aria-label="Write quick note">
+                        📝 Quick Note
+                    </button>
+                    <button class="quick-win-btn" id="quick-checkin" type="button" aria-label="Go to check-in">
+                        ✅ Check-in
+                    </button>
+                </div>
+            </div>
+
             <div class="card lavender" role="article">
                 <div class="card-title">🌅 Good Morning, Mama!</div>
                 <div class="card-content">
@@ -1210,38 +1892,62 @@
                 </div>
             </div>
 
-            <div class="card" role="article" aria-labelledby="habits-title">
+            <div class="card" role="article" aria-labelledby="habits-title" id="todays-habits-card">
                 <div class="card-title" id="habits-title">📋 Today's Habits</div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Drink Water habit">
-                    <div class="placeholder-icon purple">💧</div>
+                <div class="placeholder-item today-habit" role="button" tabindex="0" aria-label="Drink Water habit" data-category="hydration">
+                    <div class="placeholder-icon hydration">💧</div>
                     <div class="placeholder-text">
                         <h4>Drink Water</h4>
                         <p>Stay hydrated for you and baby</p>
                     </div>
+                    <div class="habit-checkbox" role="checkbox" aria-checked="false"></div>
                 </div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="5-Minute Stretch habit">
-                    <div class="placeholder-icon pink">🧘</div>
+                <div class="placeholder-item today-habit" role="button" tabindex="0" aria-label="5-Minute Stretch habit" data-category="movement">
+                    <div class="placeholder-icon movement">🧘</div>
                     <div class="placeholder-text">
                         <h4>5-Minute Stretch</h4>
                         <p>Gentle movement for recovery</p>
                     </div>
+                    <div class="habit-checkbox" role="checkbox" aria-checked="false"></div>
                 </div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Rest When Baby Rests habit">
-                    <div class="placeholder-icon green">😴</div>
+                <div class="placeholder-item today-habit" role="button" tabindex="0" aria-label="Rest When Baby Rests habit" data-category="rest">
+                    <div class="placeholder-icon rest">😴</div>
                     <div class="placeholder-text">
                         <h4>Rest When Baby Rests</h4>
                         <p>Self-care is not selfish</p>
                     </div>
+                    <div class="habit-checkbox" role="checkbox" aria-checked="false"></div>
                 </div>
-                <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" aria-label="Habits completion progress">
-                    <div class="progress-fill purple" style="width: 33%;"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Habits completion progress">
+                    <div class="progress-fill purple" id="habits-progress" style="width: 0%;"></div>
                 </div>
             </div>
 
-            <div class="card pink" role="article">
+            <div class="card pink" role="article" id="affirmation-card">
                 <div class="card-title">💭 Daily Affirmation</div>
                 <div class="card-content">
                     "I am exactly the mother my baby needs. I trust myself and my journey."
+                </div>
+                <!-- Photo Upload Section -->
+                <div class="photo-upload-section">
+                    <label class="photo-upload-btn" for="photo-input">
+                        📸 Add Today's Moment
+                    </label>
+                    <input type="file" id="photo-input" accept="image/*" style="display: none;" aria-label="Upload photo">
+                    <div class="photo-preview" id="photo-preview">
+                        <span class="photo-placeholder">Capture a special moment from today</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy-Based Suggestions -->
+            <div class="card suggestion" role="article" id="energy-suggestions">
+                <div class="card-title">💡 Suggested for You</div>
+                <div class="energy-indicator" id="energy-level-display">
+                    <span>⚡</span> <span id="current-energy">Medium Energy (5/10)</span>
+                </div>
+                <div class="suggestion-text" id="suggestion-text">
+                    You've got steady energy! Try your stretch + a short walk 🌿
                 </div>
             </div>
         </section>
@@ -1255,29 +1961,29 @@
 
             <div class="card" role="article" aria-labelledby="active-habits-title">
                 <div class="card-title" id="active-habits-title">💪 Active Habits</div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Hydration habit">
-                    <div class="placeholder-icon purple">💧</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Hydration habit" data-category="hydration">
+                    <div class="placeholder-icon hydration">💧</div>
                     <div class="placeholder-text">
                         <h4>Hydration</h4>
                         <p>8 glasses daily • 5 day streak</p>
                     </div>
                 </div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit">
-                    <div class="placeholder-icon pink">💊</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit" data-category="health">
+                    <div class="placeholder-icon health">💊</div>
                     <div class="placeholder-text">
                         <h4>Prenatal Vitamins</h4>
                         <p>Once daily • 12 day streak</p>
                     </div>
                 </div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit">
-                    <div class="placeholder-icon green">🌿</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit" data-category="movement">
+                    <div class="placeholder-icon movement">🌿</div>
                     <div class="placeholder-text">
                         <h4>Fresh Air Walk</h4>
                         <p>15 minutes • 3 day streak</p>
                     </div>
                 </div>
-                <div class="placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit">
-                    <div class="placeholder-icon orange">📔</div>
+                <div class="placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit" data-category="mental">
+                    <div class="placeholder-icon mental">📔</div>
                     <div class="placeholder-text">
                         <h4>Gratitude Journal</h4>
                         <p>Evening • 7 day streak</p>
@@ -1303,39 +2009,61 @@
             <div class="card lavender" role="article" aria-labelledby="summary-title">
                 <div class="card-title" id="summary-title">📊 This Week's Summary</div>
                 <div class="stat-grid">
-                    <div class="stat-item" role="article">
-                        <div class="stat-value">85%</div>
+                    <div class="stat-item enlarged" role="article">
+                        <div class="stat-value" data-target="85" data-suffix="%">0%</div>
                         <div class="stat-label">Habits Completed</div>
                     </div>
-                    <div class="stat-item" role="article">
-                        <div class="stat-value">12</div>
+                    <div class="stat-item enlarged" role="article" id="streak-stat">
+                        <div class="streak-container">
+                            <div class="stat-value" data-target="12" data-suffix="">0</div>
+                            <span class="streak-shield" id="streak-shield" style="display: none;" title="Protected by Grace Day">🛡️</span>
+                        </div>
                         <div class="stat-label">Day Streak</div>
+                        <div class="grace-badge" id="grace-badge">
+                            🛡️ Grace Days: <span id="grace-count">2</span>/3
+                        </div>
                     </div>
-                    <div class="stat-item" role="article">
-                        <div class="stat-value">4</div>
+                    <div class="stat-item enlarged" role="article">
+                        <div class="stat-value" data-target="4" data-suffix="">0</div>
                         <div class="stat-label">Active Habits</div>
                     </div>
-                    <div class="stat-item" role="article">
-                        <div class="stat-value">28</div>
+                    <div class="stat-item enlarged" role="article">
+                        <div class="stat-value" data-target="28" data-suffix="">0</div>
                         <div class="stat-label">Total Check-ins</div>
                     </div>
                 </div>
+                <!-- Grace Day Button -->
+                <button class="grace-day-btn" id="grace-day-btn" type="button">
+                    🛡️ Use Grace Day
+                </button>
+                <div class="grace-progress" id="grace-progress">Complete 5 more days to earn next Grace Day</div>
             </div>
 
-            <div class="card" role="article" aria-labelledby="achievements-title">
-                <div class="card-title" id="achievements-title">🏆 Recent Achievements</div>
-                <div class="placeholder-item" role="article">
-                    <div class="placeholder-icon green">⭐</div>
-                    <div class="placeholder-text">
-                        <h4>First Week Complete!</h4>
-                        <p>You've been consistent for 7 days</p>
-                    </div>
-                </div>
-                <div class="placeholder-item" role="article">
-                    <div class="placeholder-icon orange">🌟</div>
-                    <div class="placeholder-text">
-                        <h4>Hydration Hero</h4>
-                        <p>Met water goal 5 days in a row</p>
+            <!-- Achievement Badges -->
+            <div class="card" role="article" aria-labelledby="badges-title">
+                <div class="card-title" id="badges-title">🏆 Achievements</div>
+                <div class="badges-scroll">
+                    <div class="badges-container">
+                        <div class="badge-item unlocked" role="img" aria-label="First Week Complete badge - unlocked">
+                            <span class="badge-icon">⭐</span>
+                            <span class="badge-label">First Week</span>
+                        </div>
+                        <div class="badge-item unlocked" role="img" aria-label="Hydration Hero badge - unlocked">
+                            <span class="badge-icon">💧</span>
+                            <span class="badge-label">Hydration Hero</span>
+                        </div>
+                        <div class="badge-item unlocked" role="img" aria-label="7-Day Streak badge - unlocked">
+                            <span class="badge-icon">🔥</span>
+                            <span class="badge-label">7-Day Streak</span>
+                        </div>
+                        <div class="badge-item unlocked" role="img" aria-label="Self-Care Champion badge - unlocked">
+                            <span class="badge-icon">💜</span>
+                            <span class="badge-label">Self-Care Champ</span>
+                        </div>
+                        <div class="badge-item locked" role="img" aria-label="30-Day Warrior badge - locked">
+                            <span class="badge-icon">🏆</span>
+                            <span class="badge-label">30-Day Warrior</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1447,6 +2175,79 @@
         </section>
     </main>
 
+    <!-- Swipe Indicators -->
+    <div class="swipe-indicator left" id="swipe-left" aria-hidden="true">‹</div>
+    <div class="swipe-indicator right" id="swipe-right" aria-hidden="true">›</div>
+
+    <!-- Timer Overlay -->
+    <div class="timer-overlay" id="timer-overlay" role="dialog" aria-label="Timer">
+        <div class="timer-display" id="timer-display">2:00</div>
+        <div class="timer-label" id="timer-label">🧘 Stretch Time</div>
+        <button class="timer-close" id="timer-close" type="button">Close</button>
+    </div>
+
+    <!-- Breathing Guide Overlay -->
+    <div class="timer-overlay" id="breathing-overlay" role="dialog" aria-label="Breathing guide">
+        <div class="breathing-circle">
+            <span class="breathing-text" id="breathing-text">Breathe In</span>
+        </div>
+        <div class="timer-display" id="breathing-timer">0:30</div>
+        <div class="timer-label">Deep Breathing Exercise</div>
+        <button class="timer-close" id="breathing-close" type="button">Close</button>
+    </div>
+
+    <!-- Quick Note Modal -->
+    <div class="modal-overlay" id="note-modal" role="dialog" aria-label="Quick note">
+        <div class="modal">
+            <div class="modal-title">📝 Quick Note</div>
+            <textarea class="quick-note-textarea" id="quick-note-text" placeholder="What's on your mind, mama?"></textarea>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" id="note-cancel" type="button">Cancel</button>
+                <button class="modal-btn primary" id="note-save" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Water Counter Modal -->
+    <div class="modal-overlay" id="water-modal" role="dialog" aria-label="Water tracker">
+        <div class="modal">
+            <div class="modal-title">💧 Water Tracker</div>
+            <div class="water-counter">
+                <button class="modal-btn secondary" id="water-minus" type="button" style="flex: 0; padding: 14px 20px;">−</button>
+                <div class="water-count" id="water-count">0</div>
+                <button class="modal-btn primary" id="water-plus" type="button" style="flex: 0; padding: 14px 20px;">+</button>
+            </div>
+            <div class="water-glasses" id="water-glasses">
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+                <span class="water-glass">💧</span>
+            </div>
+            <div class="modal-content" style="margin-top: 16px; margin-bottom: 16px;">Goal: 8 glasses per day</div>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" id="water-close" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grace Day Confirmation Modal -->
+    <div class="modal-overlay" id="grace-modal" role="dialog" aria-label="Grace day confirmation">
+        <div class="modal">
+            <div class="modal-title">🛡️ Use a Grace Day?</div>
+            <div class="modal-content">
+                This will protect your <strong>12-day streak</strong> today, even if you don't complete all your habits. You have <strong id="grace-remaining">2</strong> Grace Days remaining.
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" id="grace-cancel" type="button">Cancel</button>
+                <button class="modal-btn primary" id="grace-confirm" type="button">Use Grace Day</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Bottom Navigation -->
     <nav class="nav" role="navigation" aria-label="Main navigation">
         <button class="nav-item active" 
@@ -1489,10 +2290,24 @@
 
     <script>
         // ============================================
-        // PRIORITY 3: PERFORMANCE OPTIMIZATIONS
+        // APP STATE
         // ============================================
-        
-        // Debounce utility
+        const appState = {
+            completedHabits: 0,
+            totalHabits: 3,
+            energyLevel: 5,
+            graceDays: 2,
+            maxGraceDays: 3,
+            streakProtected: false,
+            waterCount: 0,
+            currentPage: 0,
+            pages: ['today', 'habits', 'insights', 'levels', 'coach'],
+            firstVisit: !localStorage.getItem('visitedBefore')
+        };
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -1505,58 +2320,517 @@
             };
         }
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                    observer.unobserve(entry.target);
-                }
+        // ============================================
+        // FEATURE 1: CONFETTI CELEBRATION
+        // ============================================
+        function triggerConfetti() {
+            const colors = ['#9575CD', '#F8BBD0', '#F5EDE4', '#FFD54F', '#B8A5D9'];
+            
+            // Center burst
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: colors
             });
-        }, observerOptions);
+
+            // Left side
+            setTimeout(() => {
+                confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+            }, 200);
+
+            // Right side
+            setTimeout(() => {
+                confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+            }, 400);
+        }
+
+        function showCelebrationToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast celebration';
+            toast.textContent = message;
+            toast.setAttribute('role', 'alert');
+            document.body.appendChild(toast);
+
+            // Add pulse to habits card
+            const habitsCard = document.getElementById('todays-habits-card');
+            if (habitsCard) {
+                habitsCard.classList.add('celebration-pulse');
+                setTimeout(() => habitsCard.classList.remove('celebration-pulse'), 600);
+            }
+
+            setTimeout(() => {
+                toast.style.animation = 'toast-slide-up 0.4s var(--ease-smooth) reverse forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
 
         // ============================================
-        // NAVIGATION FUNCTIONALITY
+        // FEATURE 2: COUNT-UP ANIMATION FOR STATS
+        // ============================================
+        function animateCountUp(element, target, suffix = '', duration = 800) {
+            const start = 0;
+            const startTime = performance.now();
+            
+            element.classList.add('counting');
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * target);
+                
+                element.textContent = current + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target + suffix;
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        function initStatsAnimation() {
+            const statValues = document.querySelectorAll('.stat-value[data-target]');
+            statValues.forEach(stat => {
+                const target = parseInt(stat.dataset.target);
+                const suffix = stat.dataset.suffix || '';
+                animateCountUp(stat, target, suffix, 800);
+            });
+        }
+
+        // ============================================
+        // FEATURE 4: ENERGY-BASED SUGGESTIONS
+        // ============================================
+        function updateEnergySuggestion() {
+            const energy = appState.energyLevel;
+            const displayEl = document.getElementById('current-energy');
+            const suggestionEl = document.getElementById('suggestion-text');
+            
+            let level, suggestion;
+            
+            if (energy <= 4) {
+                level = `Low Energy (${energy}/10)`;
+                suggestion = "Gentle day ahead - just hydrate, rest when baby rests, and breathe 💜";
+            } else if (energy <= 7) {
+                level = `Medium Energy (${energy}/10)`;
+                suggestion = "You've got steady energy! Try your stretch + a short walk 🌿";
+            } else {
+                level = `High Energy (${energy}/10)`;
+                suggestion = "Great energy today! Perfect for meal prep + extra movement 💪";
+            }
+            
+            if (displayEl) displayEl.textContent = level;
+            if (suggestionEl) suggestionEl.textContent = suggestion;
+        }
+
+        // ============================================
+        // FEATURE 5: QUICK WINS FUNCTIONALITY
+        // ============================================
+        function initQuickWins() {
+            // Water Counter
+            const waterBtn = document.getElementById('quick-water');
+            const waterModal = document.getElementById('water-modal');
+            const waterPlus = document.getElementById('water-plus');
+            const waterMinus = document.getElementById('water-minus');
+            const waterCount = document.getElementById('water-count');
+            const waterClose = document.getElementById('water-close');
+            const waterGlasses = document.querySelectorAll('.water-glass');
+
+            waterBtn?.addEventListener('click', () => {
+                waterModal.classList.add('active');
+                updateWaterDisplay();
+            });
+
+            waterPlus?.addEventListener('click', () => {
+                if (appState.waterCount < 8) {
+                    appState.waterCount++;
+                    updateWaterDisplay();
+                    if (appState.waterCount === 8) {
+                        showToast('🎉 Water goal complete!');
+                    }
+                }
+            });
+
+            waterMinus?.addEventListener('click', () => {
+                if (appState.waterCount > 0) {
+                    appState.waterCount--;
+                    updateWaterDisplay();
+                }
+            });
+
+            waterClose?.addEventListener('click', () => {
+                waterModal.classList.remove('active');
+            });
+
+            function updateWaterDisplay() {
+                if (waterCount) waterCount.textContent = appState.waterCount;
+                waterGlasses.forEach((glass, i) => {
+                    glass.classList.toggle('filled', i < appState.waterCount);
+                });
+            }
+
+            // 2-Min Stretch Timer
+            const stretchBtn = document.getElementById('quick-stretch');
+            const timerOverlay = document.getElementById('timer-overlay');
+            const timerDisplay = document.getElementById('timer-display');
+            const timerClose = document.getElementById('timer-close');
+            let timerInterval;
+
+            stretchBtn?.addEventListener('click', () => {
+                timerOverlay.classList.add('active');
+                startTimer(120, timerDisplay, () => {
+                    showToast('🧘 Great stretch! You did it!');
+                    timerOverlay.classList.remove('active');
+                });
+            });
+
+            timerClose?.addEventListener('click', () => {
+                clearInterval(timerInterval);
+                timerOverlay.classList.remove('active');
+            });
+
+            function startTimer(seconds, display, onComplete) {
+                let remaining = seconds;
+                updateTimerDisplay(remaining, display);
+                
+                timerInterval = setInterval(() => {
+                    remaining--;
+                    updateTimerDisplay(remaining, display);
+                    
+                    if (remaining <= 0) {
+                        clearInterval(timerInterval);
+                        onComplete();
+                    }
+                }, 1000);
+            }
+
+            function updateTimerDisplay(seconds, display) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            // Deep Breath Guide
+            const breathBtn = document.getElementById('quick-breath');
+            const breathingOverlay = document.getElementById('breathing-overlay');
+            const breathingText = document.getElementById('breathing-text');
+            const breathingTimer = document.getElementById('breathing-timer');
+            const breathingClose = document.getElementById('breathing-close');
+            let breathingInterval;
+
+            breathBtn?.addEventListener('click', () => {
+                breathingOverlay.classList.add('active');
+                startBreathingGuide();
+            });
+
+            breathingClose?.addEventListener('click', () => {
+                clearInterval(breathingInterval);
+                breathingOverlay.classList.remove('active');
+            });
+
+            function startBreathingGuide() {
+                let seconds = 30;
+                const phases = ['Breathe In', 'Hold', 'Breathe Out', 'Hold'];
+                let phaseIndex = 0;
+                let phaseTimer = 4;
+                
+                breathingText.textContent = phases[0];
+                updateTimerDisplay(seconds, breathingTimer);
+                
+                breathingInterval = setInterval(() => {
+                    seconds--;
+                    phaseTimer--;
+                    
+                    if (phaseTimer <= 0) {
+                        phaseIndex = (phaseIndex + 1) % phases.length;
+                        breathingText.textContent = phases[phaseIndex];
+                        phaseTimer = 4;
+                    }
+                    
+                    updateTimerDisplay(seconds, breathingTimer);
+                    
+                    if (seconds <= 0) {
+                        clearInterval(breathingInterval);
+                        showToast('😮‍💨 Great breathing session!');
+                        breathingOverlay.classList.remove('active');
+                    }
+                }, 1000);
+            }
+
+            // Quick Note
+            const noteBtn = document.getElementById('quick-note');
+            const noteModal = document.getElementById('note-modal');
+            const noteText = document.getElementById('quick-note-text');
+            const noteCancel = document.getElementById('note-cancel');
+            const noteSave = document.getElementById('note-save');
+
+            noteBtn?.addEventListener('click', () => {
+                noteModal.classList.add('active');
+                noteText.focus();
+            });
+
+            noteCancel?.addEventListener('click', () => {
+                noteModal.classList.remove('active');
+                noteText.value = '';
+            });
+
+            noteSave?.addEventListener('click', () => {
+                if (noteText.value.trim()) {
+                    localStorage.setItem('quickNote_' + Date.now(), noteText.value);
+                    showToast('📝 Note saved!');
+                }
+                noteModal.classList.remove('active');
+                noteText.value = '';
+            });
+
+            // Check-in button
+            const checkinBtn = document.getElementById('quick-checkin');
+            checkinBtn?.addEventListener('click', () => {
+                navigateToPage('levels');
+            });
+        }
+
+        // ============================================
+        // FEATURE 6 & 7: GRACE DAY SYSTEM
+        // ============================================
+        function initGraceDaySystem() {
+            const graceBtn = document.getElementById('grace-day-btn');
+            const graceModal = document.getElementById('grace-modal');
+            const graceCancel = document.getElementById('grace-cancel');
+            const graceConfirm = document.getElementById('grace-confirm');
+            const graceRemaining = document.getElementById('grace-remaining');
+            const graceBadge = document.getElementById('grace-badge');
+            const graceCount = document.getElementById('grace-count');
+            const graceProgress = document.getElementById('grace-progress');
+            const streakShield = document.getElementById('streak-shield');
+            const streakStat = document.getElementById('streak-stat');
+
+            function updateGraceUI() {
+                if (graceCount) graceCount.textContent = appState.graceDays;
+                if (graceRemaining) graceRemaining.textContent = appState.graceDays;
+                
+                if (graceBtn) {
+                    graceBtn.disabled = appState.graceDays <= 0;
+                    graceBtn.textContent = appState.graceDays > 0 
+                        ? `🛡️ Use Grace Day (${appState.graceDays} available)`
+                        : '🛡️ No Grace Days Available';
+                }
+
+                if (appState.streakProtected) {
+                    streakShield.style.display = 'inline';
+                    streakStat?.classList.add('streak-protected');
+                } else {
+                    streakShield.style.display = 'none';
+                    streakStat?.classList.remove('streak-protected');
+                }
+            }
+
+            graceBtn?.addEventListener('click', () => {
+                if (appState.graceDays > 0) {
+                    graceModal.classList.add('active');
+                }
+            });
+
+            graceCancel?.addEventListener('click', () => {
+                graceModal.classList.remove('active');
+            });
+
+            graceConfirm?.addEventListener('click', () => {
+                appState.graceDays--;
+                appState.streakProtected = true;
+                updateGraceUI();
+                graceModal.classList.remove('active');
+                showToast('🛡️ Grace Day activated! Your streak is protected.');
+            });
+
+            updateGraceUI();
+        }
+
+        // ============================================
+        // FEATURE 8: PHOTO UPLOAD
+        // ============================================
+        function initPhotoUpload() {
+            const photoInput = document.getElementById('photo-input');
+            const photoPreview = document.getElementById('photo-preview');
+
+            // Load saved photo from localStorage
+            const savedPhoto = localStorage.getItem('todaysMoment');
+            if (savedPhoto) {
+                displayPhoto(savedPhoto);
+            }
+
+            photoInput?.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const dataUrl = event.target.result;
+                        localStorage.setItem('todaysMoment', dataUrl);
+                        displayPhoto(dataUrl);
+                        showToast('📸 Moment captured!');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            function displayPhoto(dataUrl) {
+                photoPreview.innerHTML = `<img src="${dataUrl}" alt="Today's moment" class="photo-thumbnail">`;
+            }
+        }
+
+        // ============================================
+        // FEATURE 10: SWIPE NAVIGATION
+        // ============================================
+        function initSwipeNavigation() {
+            const mainContent = document.querySelector('.main-content');
+            let startX, startY, distX, distY;
+            let isSwiping = false;
+            const threshold = 50;
+            const restraint = 100;
+
+            // Show swipe hints on first visit
+            if (appState.firstVisit) {
+                localStorage.setItem('visitedBefore', 'true');
+                const leftHint = document.getElementById('swipe-left');
+                const rightHint = document.getElementById('swipe-right');
+                
+                setTimeout(() => {
+                    rightHint?.classList.add('show');
+                    setTimeout(() => {
+                        rightHint?.classList.remove('show');
+                    }, 3000);
+                }, 2000);
+            }
+
+            mainContent?.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX;
+                startY = e.touches[0].pageY;
+                isSwiping = true;
+            }, { passive: true });
+
+            mainContent?.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                
+                distX = e.touches[0].pageX - startX;
+                distY = e.touches[0].pageY - startY;
+                
+                // Visual feedback during swipe
+                if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > 20) {
+                    const activePage = document.querySelector('.page.active');
+                    if (activePage) {
+                        activePage.classList.add('swiping');
+                        activePage.style.transform = `translateX(${distX * 0.3}px)`;
+                    }
+                }
+            }, { passive: true });
+
+            mainContent?.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+
+                const activePage = document.querySelector('.page.active');
+                if (activePage) {
+                    activePage.classList.remove('swiping');
+                    activePage.style.transform = '';
+                }
+
+                // Check if it's a valid swipe
+                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                    if (distX < 0 && appState.currentPage < appState.pages.length - 1) {
+                        // Swipe left - next page
+                        navigateToPage(appState.pages[appState.currentPage + 1]);
+                    } else if (distX > 0 && appState.currentPage > 0) {
+                        // Swipe right - previous page
+                        navigateToPage(appState.pages[appState.currentPage - 1]);
+                    }
+                }
+
+                distX = 0;
+                distY = 0;
+            });
+        }
+
+        function navigateToPage(pageId) {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+            
+            appState.currentPage = appState.pages.indexOf(pageId);
+
+            navItems.forEach(nav => {
+                nav.classList.remove('active');
+                nav.setAttribute('aria-current', 'false');
+                if (nav.dataset.page === pageId) {
+                    nav.classList.add('active');
+                    nav.setAttribute('aria-current', 'page');
+                }
+            });
+
+            pages.forEach(page => {
+                page.classList.add('swipe-transition');
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                    page.setAttribute('aria-hidden', 'false');
+                } else {
+                    page.classList.remove('active');
+                    page.setAttribute('aria-hidden', 'true');
+                }
+                setTimeout(() => page.classList.remove('swipe-transition'), 300);
+            });
+
+            // Trigger stats animation when insights page is shown
+            if (pageId === 'insights') {
+                initStatsAnimation();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================
+        // TOAST NOTIFICATIONS
+        // ============================================
+        function showToast(message, isCelebration = false) {
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (isCelebration ? ' celebration' : '');
+            toast.textContent = message;
+            toast.setAttribute('role', 'alert');
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'toast-slide-up 0.4s var(--ease-smooth) reverse forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ============================================
+        // MAIN INITIALIZATION
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             const navItems = document.querySelectorAll('.nav-item');
             const pages = document.querySelectorAll('.page');
 
-            // Observe cards for animation
-            document.querySelectorAll('.card').forEach(card => {
-                observer.observe(card);
-            });
-
+            // ============================================
+            // NAVIGATION FUNCTIONALITY
+            // ============================================
             navItems.forEach(item => {
                 item.addEventListener('click', function() {
-                    const targetPage = this.getAttribute('data-page');
-
-                    // Update active nav item
-                    navItems.forEach(nav => {
-                        nav.classList.remove('active');
-                        nav.setAttribute('aria-current', 'false');
-                    });
-                    this.classList.add('active');
-                    this.setAttribute('aria-current', 'page');
-
-                    // Show target page, hide others
-                    pages.forEach(page => {
-                        if (page.id === targetPage) {
-                            page.classList.add('active');
-                            page.setAttribute('aria-hidden', 'false');
-                        } else {
-                            page.classList.remove('active');
-                            page.setAttribute('aria-hidden', 'true');
-                        }
-                    });
-
-                    // Scroll to top of page
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    navigateToPage(this.dataset.page);
                 });
             });
 
@@ -1569,7 +2843,7 @@
             }
 
             // ============================================
-            // PRIORITY 3: PARTICLE EFFECT
+            // PARTICLE EFFECT
             // ============================================
             const particlesContainer = document.getElementById('particles');
             if (particlesContainer) {
@@ -1585,19 +2859,60 @@
             }
 
             // ============================================
-            // HABIT ITEM INTERACTIONS
+            // TODAY'S HABITS WITH CONFETTI
             // ============================================
-            const habitItems = document.querySelectorAll('.placeholder-item[role="button"]');
-            habitItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Toggle completed state
-                    this.classList.toggle('completed');
+            const todayHabits = document.querySelectorAll('.today-habit');
+            const progressFill = document.getElementById('habits-progress');
+
+            todayHabits.forEach(habit => {
+                habit.addEventListener('click', function() {
+                    const checkbox = this.querySelector('.habit-checkbox');
+                    const wasCompleted = this.classList.contains('completed');
                     
-                    // Show success toast
-                    showToast('Habit completed! 🌟');
+                    this.classList.toggle('completed');
+                    checkbox?.classList.toggle('checked');
+                    checkbox?.setAttribute('aria-checked', !wasCompleted);
+                    
+                    // Update count
+                    if (!wasCompleted) {
+                        appState.completedHabits++;
+                        showToast('Habit completed! 🌟');
+                    } else {
+                        appState.completedHabits--;
+                    }
+                    
+                    // Update progress bar
+                    const percent = (appState.completedHabits / appState.totalHabits) * 100;
+                    if (progressFill) {
+                        progressFill.style.width = percent + '%';
+                    }
+                    
+                    // Check for all complete
+                    if (appState.completedHabits === appState.totalHabits) {
+                        triggerConfetti();
+                        showCelebrationToast("🎉 All habits complete! You're amazing, mama!");
+                    }
                 });
 
                 // Keyboard support
+                habit.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // ============================================
+            // OTHER HABIT ITEMS (non-today)
+            // ============================================
+            const otherHabits = document.querySelectorAll('.placeholder-item[role="button"]:not(.today-habit)');
+            otherHabits.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('completed');
+                    showToast('Habit updated! 🌟');
+                });
+
                 item.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -1616,7 +2931,6 @@
                 const sendMessage = () => {
                     const message = chatInput.value.trim();
                     if (message) {
-                        // Add user message
                         const chatCard = chatInput.closest('.card');
                         const userBubble = document.createElement('div');
                         userBubble.className = 'chat-bubble user';
@@ -1625,10 +2939,7 @@
                         userBubble.setAttribute('aria-label', 'Your message');
                         chatInput.parentElement.before(userBubble);
 
-                        // Clear input
                         chatInput.value = '';
-
-                        // Show typing indicator
                         showTypingIndicator(chatCard);
                     }
                 };
@@ -1641,7 +2952,6 @@
                 });
             }
 
-            // Typing indicator function
             function showTypingIndicator(container) {
                 const indicator = document.createElement('div');
                 indicator.className = 'typing-indicator';
@@ -1660,37 +2970,37 @@
             }
 
             // ============================================
-            // PRIORITY 2: TOAST NOTIFICATIONS
+            // INITIALIZE ALL FEATURES
             // ============================================
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                toast.textContent = message;
-                toast.setAttribute('role', 'alert');
-                document.body.appendChild(toast);
+            initQuickWins();
+            initGraceDaySystem();
+            initPhotoUpload();
+            initSwipeNavigation();
+            updateEnergySuggestion();
 
-                setTimeout(() => {
-                    toast.style.animation = 'toast-slide-up 0.4s var(--ease-smooth) reverse forwards';
-                    setTimeout(() => toast.remove(), 400);
-                }, 3000);
-            }
-
-            // ============================================
-            // PRIORITY 3: PERFORMANCE - Debounced scroll
-            // ============================================
-            const handleScroll = debounce(() => {
-                // Any scroll-based animations can go here
-            }, 100);
-
-            window.addEventListener('scroll', handleScroll, { passive: true });
-
-            // ============================================
-            // ACCESSIBILITY: Set initial aria-hidden
-            // ============================================
+            // Set initial aria-hidden
             pages.forEach(page => {
                 if (!page.classList.contains('active')) {
                     page.setAttribute('aria-hidden', 'true');
                 }
+            });
+
+            // Close modals on overlay click
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Close timer overlays on overlay click
+            document.querySelectorAll('.timer-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        overlay.classList.remove('active');
+                    }
+                });
             });
         });
     </script>
