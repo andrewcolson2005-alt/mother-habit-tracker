@@ -2114,28 +2114,28 @@
                     <div class="placeholder-icon hydration">💧</div>
                     <div class="placeholder-text">
                         <h4>Hydration</h4>
-                        <p>8 glasses daily • 5 day streak</p>
+                        <p>8 glasses daily • 5 Days of You!</p>
                     </div>
                 </div>
                 <div class="placeholder-item" role="button" tabindex="0" aria-label="Prenatal Vitamins habit" data-category="health">
                     <div class="placeholder-icon health">💊</div>
                     <div class="placeholder-text">
                         <h4>Prenatal Vitamins</h4>
-                        <p>Once daily • 12 day streak</p>
+                        <p>Once daily • 12 Days of You!</p>
                     </div>
                 </div>
                 <div class="placeholder-item" role="button" tabindex="0" aria-label="Fresh Air Walk habit" data-category="movement">
                     <div class="placeholder-icon movement">🌿</div>
                     <div class="placeholder-text">
                         <h4>Fresh Air Walk</h4>
-                        <p>15 minutes • 3 day streak</p>
+                        <p>15 minutes • 3 Days of You!</p>
                     </div>
                 </div>
                 <div class="placeholder-item" role="button" tabindex="0" aria-label="Gratitude Journal habit" data-category="mental">
                     <div class="placeholder-icon mental">📔</div>
                     <div class="placeholder-text">
                         <h4>Gratitude Journal</h4>
-                        <p>Evening • 7 day streak</p>
+                        <p>Evening • 7 Days of You!</p>
                     </div>
                 </div>
             </div>
@@ -2160,14 +2160,14 @@
                 <div class="stat-grid">
                     <div class="stat-item enlarged" role="article">
                         <div class="stat-value" data-target="85" data-suffix="%">0%</div>
-                        <div class="stat-label">Habits Completed</div>
+                        <div class="stat-label">Habits Checked In</div>
                     </div>
                     <div class="stat-item enlarged" role="article" id="streak-stat">
                         <div class="streak-container">
                             <div class="stat-value" data-target="12" data-suffix="">0</div>
                             <span class="streak-shield" id="streak-shield" style="display: none;" title="Protected by Grace Day">🛡️</span>
                         </div>
-                        <div class="stat-label">Day Streak</div>
+                        <div class="stat-label">Days of You</div>
                         <div class="grace-badge" id="grace-badge">
                             🛡️ Grace Days: <span id="grace-count">2</span>/3
                         </div>
@@ -2185,7 +2185,7 @@
                 <button class="grace-day-btn" id="grace-day-btn" type="button">
                     🛡️ Use Grace Day
                 </button>
-                <div class="grace-progress" id="grace-progress">Complete 5 more days to earn next Grace Day</div>
+                <div class="grace-progress" id="grace-progress">Just 5 more days to earn next Grace Day</div>
             </div>
 
             <!-- Achievement Badges -->
@@ -2193,25 +2193,25 @@
                 <div class="card-title" id="badges-title">🏆 Achievements</div>
                 <div class="badges-scroll">
                     <div class="badges-container">
-                        <div class="badge-item unlocked" role="img" aria-label="First Week Complete badge - unlocked">
+                        <div class="badge-item unlocked" role="img" aria-label="One Week of You badge - unlocked">
                             <span class="badge-icon">⭐</span>
-                            <span class="badge-label">First Week</span>
+                            <span class="badge-label">One Week of You!</span>
                         </div>
-                        <div class="badge-item unlocked" role="img" aria-label="Hydration Hero badge - unlocked">
+                        <div class="badge-item unlocked" role="img" aria-label="Water Lover badge - unlocked">
                             <span class="badge-icon">💧</span>
-                            <span class="badge-label">Hydration Hero</span>
+                            <span class="badge-label">Water Lover</span>
                         </div>
-                        <div class="badge-item unlocked" role="img" aria-label="7-Day Streak badge - unlocked">
+                        <div class="badge-item unlocked" role="img" aria-label="7 Days of You badge - unlocked">
                             <span class="badge-icon">🔥</span>
-                            <span class="badge-label">7-Day Streak</span>
+                            <span class="badge-label">7 Days of You!</span>
                         </div>
                         <div class="badge-item unlocked" role="img" aria-label="Self-Care Champion badge - unlocked">
                             <span class="badge-icon">💜</span>
                             <span class="badge-label">Self-Care Champ</span>
                         </div>
-                        <div class="badge-item locked" role="img" aria-label="30-Day Warrior badge - locked">
+                        <div class="badge-item locked" role="img" aria-label="30 Days of Grace badge - locked">
                             <span class="badge-icon">🏆</span>
-                            <span class="badge-label">30-Day Warrior</span>
+                            <span class="badge-label">30 Days of Grace</span>
                         </div>
                     </div>
                 </div>
@@ -2279,7 +2279,7 @@
             <div class="card blue" role="article">
                 <div class="card-title">📈 Weekly Trends</div>
                 <div class="card-content">
-                    Your mood has been steadily improving over the past week. Sleep quality tends to be better on days when you complete your evening wind-down routine.
+                    Your mood has been steadily improving over the past week. Sleep quality tends to be better on days when you do your evening wind-down routine.
                 </div>
             </div>
         </section>
@@ -2388,7 +2388,7 @@
         <div class="modal">
             <div class="modal-title">🛡️ Use a Grace Day?</div>
             <div class="modal-content">
-                This will protect your <strong>12-day streak</strong> today, even if you don't complete all your habits. You have <strong id="grace-remaining">2</strong> Grace Days remaining.
+                This will protect your <strong>12 Days of You</strong> today, even if you don't check in on all your habits. You have <strong id="grace-remaining">2</strong> Grace Days remaining.
             </div>
             <div class="modal-buttons">
                 <button class="modal-btn secondary" id="grace-cancel" type="button">Cancel</button>
@@ -2757,7 +2757,7 @@
                     appState.waterCount++;
                     updateWaterDisplay();
                     if (appState.waterCount === 8) {
-                        showToast('🎉 Water goal complete!');
+                        showToast('🎉 Water goal reached!');
                     }
                 }
             });
@@ -2968,7 +2968,7 @@
                 appState.streakProtected = true;
                 updateGraceUI();
                 graceModal.classList.remove('active');
-                showToast('🛡️ Grace Day activated! Your streak is protected.');
+                showToast('🛡️ Grace Day activated! Your progress is protected.');
             });
 
             updateGraceUI();
@@ -3251,10 +3251,10 @@
                         playSound('all-complete-sound-2');
                         triggerConfetti();
                         // Show ONLY celebration toast (not the regular one)
-                        showCelebrationToast("🎉 All habits complete! You're amazing, mama!");
+                        showCelebrationToast("🎉 You did it! You're amazing, mama!");
                     } else if (!wasCompleted && appState.completedHabits < appState.totalHabits) {
-                        // Show regular toast only if not all habits complete
-                        showToastInstant('Habit completed! 🌟');
+                        // Show regular toast only if not all habits checked in
+                        showToastInstant('Habit checked in! 🌟');
                     }
                 });
 
